@@ -4,7 +4,7 @@ import HeaderComponent from '../components/HeaderComponent'
 const AboutPage = () => {
   return (
     <>
-        <h2>About</h2>
+        <h1>About</h1>
     </>
   )
 }

@@ -4,7 +4,7 @@ import HeaderComponent from '../components/HeaderComponent'
 const ContacePage = () => {
   return (
     <>
-        <h2>Contact</h2>
+        <h1>Contact</h1>
     </>
   )
 }

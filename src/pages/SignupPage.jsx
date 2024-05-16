@@ -31,11 +31,11 @@ const SignupPage = () => {
 
   return (
     <div>
-        <h2>Signup Page</h2>
+        <h1>Signup Page</h1>
         <p>Define your login credentials.</p>
         <form onSubmit={signupUser}>
-            <input type="text" name="username" placeholder='Enter Username' />
-            <input type="password" name="password" placeholder='Enter Password' />
+            <input type="text" name="username" placeholder='Select Username' />
+            <input type="password" name="password" placeholder='Select Password' />
             <input type="submit" />
         </form>
     </div>

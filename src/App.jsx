@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginPage'
 import HeaderComponent from './components/HeaderComponent'
 import PrivateRoutes from './utils/PrivateRoutes'
 import SignupPage from './pages/SignupPage'
+import LandingPage from './pages/LandingPage'
 
 const App = () => {
 
@@ -25,6 +26,8 @@ const App = () => {
 
             <Route path='/login' element={<LoginPage />} />
             <Route path='/signup' element={<SignupPage />} />
+            <Route path='/landing' element={<LandingPage />} />
+
             
             <Route element={<PrivateRoutes />}>
               <Route path='*' element={<NoPage />} />

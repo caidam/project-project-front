@@ -1,16 +1,20 @@
 import React from 'react';
 import { useStopTracking } from '../hooks/useTrackedSources';
 
-const StopTrackingButton = ({ sourceUrl, userSourceId, onSuccess }) => {
+const StopTrackingButton = ({ sourceUrl, userSourceId, setSourcesUpdateNeeded }) => {
   const stopTracking = useStopTracking();
 
   const handleClick = async () => {
-    try {
-      await stopTracking(sourceUrl, userSourceId);
-    } catch (error) {
-      console.error('Error stopping tracking:', error);
+    const confirmStopTracking = window.confirm('Are you sure you want to stop tracking this source?');
+    if (confirmStopTracking) {
+      try {
+        await stopTracking(sourceUrl, userSourceId);
+        alert('Stopped tracking the source successfully!');
+        setSourcesUpdateNeeded(true);
+      } catch (error) {
+        console.error('Error stopping tracking:', error);
+      }
     }
-    onSuccess();
   };
 
   return <button onClick={handleClick}>Stop Tracking</button>;

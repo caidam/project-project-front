@@ -9,14 +9,19 @@ const HeaderComponent = () => {
 
   return (
     <div>
-      <Link to="/" >Home</Link>
-      <span> | </span>
       { user ? (
-        <Link onClick={ logoutUser }>Logout</Link>
+        <>
+          <Link to="/" >Home</Link>
+          <span> | </span>
+          <Link onClick={ logoutUser }>Logout</Link>
+        </>
       ) : (
         <>
+          <Link to="/landing" >Landing</Link>
+          <span> | </span>
           { location.pathname !== '/login' && <Link to="/login" >Login</Link> }
-          { location.pathname === '/login' && <Link to="/signup" >Signup</Link> }
+          { location.pathname === '/landing' && <span> | </span> }
+          { location.pathname !== '/signup' && <Link to="/signup" >Signup</Link> }
         </>
       )}
 
