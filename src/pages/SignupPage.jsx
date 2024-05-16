@@ -8,21 +8,23 @@ const SignupPage = () => {
   let signupUser = async (e) => {
     e.preventDefault()
 
-    let response = await fetch('http://127.0.0.1:8000/api/users/', {
+    let response = await fetch('http://127.0.0.1:8000/api/register/', {
         method:'POST',
         headers:{
             'Content-Type':'application/json'
         },
         body:JSON.stringify({
             'username':e.target.username.value, 
+            'email':e.target.email.value,
             'password':e.target.password.value
         })
     });
 
     let data = await response.json()
 
-    if (response.status == 201) {
-        alert('Account created successfully!');
+    // if (response.status == 201) {
+    if (response.status == 200) {
+        alert('Account created successfully! Please check your email to verify your account.');
         navigate('/login');
     } else {
         alert('Something went wrong!');
@@ -35,6 +37,7 @@ const SignupPage = () => {
         <p>Define your login credentials.</p>
         <form onSubmit={signupUser}>
             <input type="text" name="username" placeholder='Select Username' />
+            <input type="email" name="email" placeholder='Enter Email' />
             <input type="password" name="password" placeholder='Select Password' />
             <input type="submit" />
         </form>

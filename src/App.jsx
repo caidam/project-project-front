@@ -12,6 +12,7 @@ import HeaderComponent from './components/HeaderComponent'
 import PrivateRoutes from './utils/PrivateRoutes'
 import SignupPage from './pages/SignupPage'
 import LandingPage from './pages/LandingPage'
+import ActivationSuccessPage from './pages/ActivationSuccessPage'
 
 const App = () => {
 
@@ -27,6 +28,7 @@ const App = () => {
             <Route path='/login' element={<LoginPage />} />
             <Route path='/signup' element={<SignupPage />} />
             <Route path='/landing' element={<LandingPage />} />
+            <Route path='/activate/:uid/:token' element={<ActivationSuccessPage />} />
 
             
             <Route element={<PrivateRoutes />}>
