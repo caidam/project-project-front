@@ -66,9 +66,9 @@ import StopTrackingButton from '../components/StopTrackingButton';
 
 const HomePage = () => {
 
-  const [sources, setSources] = useTrackedSources(); 
-  const [userSources, setUserSources] = useUserSources();
-  const stopTracking = useStopTracking(); // Initialize stopTracking function
+  const [sources, setSources, setSourcesUpdateNeeded] = useTrackedSources(); 
+  const [userSources, setUserSources, setUserSourcesUpdateNeeded] = useUserSources();
+  // const stopTracking = useStopTracking(); // Initialize stopTracking function
   
   useEffect(() => {
     getNotes()
@@ -107,7 +107,7 @@ const HomePage = () => {
           ))}
         </ul>
 
-        <Addsource  sources={sources} setSources={setSources} />
+        <Addsource  sources={sources} setSourcesUpdateNeeded={setSourcesUpdateNeeded} setUserSourcesUpdateNeeded={setUserSourcesUpdateNeeded} />
 
         <h3>Tracked Sources</h3>
         <div>

@@ -3,6 +3,7 @@ import useAxios from '../utils/useAxios'; // Custom hook for making Axios reques
 
 export const useTrackedSources = () => {
   const [sources, setSources] = useState([]);
+  const [sourcesUpdateNeeded, setSourcesUpdateNeeded] = useState(true);
   const api = useAxios();
 
   useEffect(() => {
@@ -13,20 +14,24 @@ export const useTrackedSources = () => {
           // const sortedData = response.data.sort((a, b) => new Date(b.date_added) - new Date(a.date_added));
           setSources(response.data);
           // console.log(sortedData)
+          setSourcesUpdateNeeded(false);
         }
       } catch (error) {
         console.error('Error fetching tracked sources:', error);
       }
     };
 
-    getTrackedSources();
-  }, []);
+    if (sourcesUpdateNeeded) { // Only run if an update is needed
+      getTrackedSources();
+    }
+  }, [sourcesUpdateNeeded]);
 
-  return [sources, setSources];
+  return [sources, setSources, setSourcesUpdateNeeded];
 };
 
 export const useUserSources = () => {
   const [userSources, setUserSources] = useState([]);
+  const [userSourcesUpdateNeeded, setUserSourcesUpdateNeeded] = useState(true);
   const api = useAxios();
 
   useEffect(() => {
@@ -36,6 +41,7 @@ export const useUserSources = () => {
         if (response.status === 200) {
           // const sortedData = response.data.sort((a, b) => new Date(b.date_added) - new Date(a.date_added));
           setUserSources(response.data);
+          setUserSourcesUpdateNeeded(false);
           // console.log(response.data)
         }
       } catch (error) {
@@ -43,10 +49,12 @@ export const useUserSources = () => {
       }
     };
 
-    getUserSources();
-  }, []);
+    if (userSourcesUpdateNeeded) { // Only run if an update is needed
+      getUserSources();
+    }
+  }, [userSourcesUpdateNeeded]);
 
-  return [userSources, setUserSources];
+  return [userSources, setUserSources, setUserSourcesUpdateNeeded];
 };
 
 // test stop tracking

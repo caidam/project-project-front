@@ -2,16 +2,17 @@ import React, { useState, useEffect, useContext } from 'react';
 import AuthContext from '../context/AuthContext'; // Importing AuthContext for user authentication
 import useAxios from '../utils/useAxios'; // Custom hook for making Axios requests
 import YouTubeVideoInfo from './YoutubeVideoInfo'; // Component to display YouTube video info
+// import { useTrackedSources, useUserSources } from '../hooks/useTrackedSources';
 
 // Define the Addsource component
-const Addsource = ({ sources, setSources }) => {
+const Addsource = ({ sources, setSourcesUpdateNeeded, setUserSourcesUpdateNeeded }) => {
     // Define state variables
     const [inputValue, setInputValue] = useState(''); // State to hold the input value from the form
     const [youtubeUrl, setYoutubeUrl] = useState(''); // State to hold the YouTube URL
     const [isValidUrl, setIsValidUrl] = useState(false); // State to check if the URL is valid
     const { authTokens, logoutUser } = useContext(AuthContext); // Context to hold the authentication tokens and logout function
     const api = useAxios(); // Custom hook to make API calls
-    // const [sources, setSources] = useTrackedSources(); 
+    // const [sources, setSources, setSourcesUpdateNeeded] = useTrackedSources(); 
     const [isSubmitted, setIsSubmitted] = useState(false);
 
     // Function to set the YouTube URL
@@ -47,12 +48,15 @@ const Addsource = ({ sources, setSources }) => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            if (response.status === 201) {
+            // if (response.status === 201) {
+            if ([200, 201].includes(response.status)) {
                 const newSource = {
                     id: response.data.id,
                     url: formData.get('source_url'),
                 };
-                setSources([newSource, ...sources]);
+                // setSources([newSource, ...sources]);
+                setSourcesUpdateNeeded(true);
+                setUserSourcesUpdateNeeded(true);
                 setIsSubmitted(true);
             }
         } catch (error) {
