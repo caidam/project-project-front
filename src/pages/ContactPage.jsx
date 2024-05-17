@@ -1,7 +1,7 @@
 import React from 'react'
 import HeaderComponent from '../components/HeaderComponent'
 
-const ContacePage = () => {
+const ContactPage = () => {
   return (
     <>
         <h1>Contact</h1>
@@ -9,4 +9,4 @@ const ContacePage = () => {
   )
 }
 
-export default ContacePage
+export default ContactPage
