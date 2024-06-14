@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { DJ_BASE_URL } from '../config'
 
 const SignupPage = () => {
 
@@ -8,7 +9,7 @@ const SignupPage = () => {
   let signupUser = async (e) => {
     e.preventDefault()
 
-    let response = await fetch('http://127.0.0.1:8000/api/register/', {
+    let response = await fetch(`${DJ_BASE_URL}/api/register/`, {
         method:'POST',
         headers:{
             'Content-Type':'application/json'

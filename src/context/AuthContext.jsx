@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom'
+import { DJ_BASE_URL } from '../config';
 
 const AuthContext = createContext();
 
@@ -28,7 +29,8 @@ export const AuthProvider = ({ children }) => {
 
         e.preventDefault()
 
-        let response = await fetch('http://127.0.0.1:8000/api/token/', {
+        // let response = await fetch('http://127.0.0.1:8000/api/token/', {
+        let response = await fetch(`${DJ_BASE_URL}/api/token/`, {
             method:'POST',
             headers:{
                 'Content-Type':'application/json'

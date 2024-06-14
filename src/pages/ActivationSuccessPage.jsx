@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { DJ_BASE_URL } from '../config'
 
 const ActivationSuccessPage = () => {
   const { uid, token } = useParams()
@@ -8,7 +9,7 @@ const ActivationSuccessPage = () => {
 
   useEffect(() => {
     const activateUser = async () => {
-      const response = await fetch(`http://localhost:8000/api/activate/${uid}/${token}/`)
+      const response = await fetch(`${DJ_BASE_URL}/api/activate/${uid}/${token}/`)
       if (response.ok) {
         // The user was successfully activated
         setMessage('User activation successful, you can now login.')

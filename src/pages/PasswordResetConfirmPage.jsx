@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { DJ_BASE_URL } from '../config'
 
 const PasswordResetConfirmPage = () => {
   const navigate = useNavigate()
@@ -8,7 +9,7 @@ const PasswordResetConfirmPage = () => {
   let confirmPasswordReset = async (e) => {
     e.preventDefault()
 
-    let response = await fetch(`http://127.0.0.1:8000/api/reset-password-confirm/${uidb64}/${token}/`, {
+    let response = await fetch(`${DJ_BASE_URL}/api/reset-password-confirm/${uidb64}/${token}/`, {
         method:'POST',
         headers:{
             'Content-Type':'application/json'
