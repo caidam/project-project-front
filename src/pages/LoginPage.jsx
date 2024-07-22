@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
 import { Link } from 'react-router-dom'
+import { Button } from '@/components/ui/button'
 
 const LoginPage = () => {
 
@@ -16,6 +17,7 @@ const LoginPage = () => {
             <input type="submit" />
         </form>
         <Link to="/request-password-reset" >Request password reset</Link>
+        <Button>Test Button</Button>
     </div>
   )
 }
