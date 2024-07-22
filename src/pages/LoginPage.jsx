@@ -27,7 +27,13 @@ const LoginPage = () => {
       return;
     }
 
-    loginUser(e);
+    const loginPromise = loginUser(e);
+
+    toast.promise(loginPromise, {
+      loading: 'Signing in...',
+      // success: 'Signed in successfully!', // not needed since it switches to home immediately
+      error: 'Sign-in failed!',
+    });
   };
 
   return (
