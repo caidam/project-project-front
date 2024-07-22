@@ -39,7 +39,7 @@ const LoginPage = () => {
   return (
     <div className="flex items-center justify-center min-h-screen">
       <LoginForm loginUser={handleLogin} />
-      <Toaster richColors closeButton />
+      {/* <Toaster richColors closeButton /> */}
     </div>
   );
 };

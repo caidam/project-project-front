@@ -54,7 +54,7 @@ const PasswordResetRequestPage = () => {
   return (
     <div className="flex items-center justify-center min-h-screen" >
       <PasswordResetRequestForm requestPasswordReset={requestPasswordReset} />
-      <Toaster richColors closeButton />
+      {/* <Toaster richColors closeButton /> */}
     </div>
   );
 };

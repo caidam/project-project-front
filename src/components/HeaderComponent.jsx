@@ -1,19 +1,24 @@
 import React, { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
+import Navbar from './Navbar'
 
-const HeaderComponent = () => {
+const HeaderComponent = ( props ) => {
 
   let { user, logoutUser } = useContext(AuthContext)
+  // let { user } = useContext(AuthContext)
   let location = useLocation()
 
   return (
     <div>
       { user ? (
         <>
-          <Link to="/" >Home</Link>
+          {/* <Link to="/" >Home</Link>
           <span> | </span>
-          <Link onClick={ logoutUser }>Logout</Link>
+          <Link onClick={ logoutUser }>Logout</Link> */}
+          {/* <Navbar props = { props } >
+            {props.children}
+          </Navbar> */}
         </>
       ) : (
         <>
@@ -25,7 +30,7 @@ const HeaderComponent = () => {
         </>
       )}
 
-      { user && <p>Hello {user.username}</p> }
+      {/* { user && <p>Hello {user.username}</p> } */}
       
     </div>
   )

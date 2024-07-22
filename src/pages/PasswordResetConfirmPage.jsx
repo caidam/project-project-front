@@ -54,7 +54,7 @@ const PasswordResetConfirmPage = () => {
   return (
     <div className="flex items-center justify-center min-h-screen">
       <PasswordResetConfirmForm confirmPasswordReset={confirmPasswordReset} />
-      <Toaster richColors closeButton />
+      {/* <Toaster richColors closeButton /> */}
     </div>
   );
 };

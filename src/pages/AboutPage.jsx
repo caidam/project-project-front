@@ -1,10 +1,14 @@
 import React from 'react'
 import HeaderComponent from '../components/HeaderComponent'
+import { Dashboard } from '@/components/HomeComponent'
+import Navbar from '@/components/Navbar'
 
 const AboutPage = () => {
   return (
     <>
-        <h1>About</h1>
+        <Navbar>
+          <Dashboard/>
+        </Navbar>
     </>
   )
 }

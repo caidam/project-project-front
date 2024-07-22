@@ -15,6 +15,7 @@ import LandingPage from './pages/LandingPage'
 import ActivationSuccessPage from './pages/ActivationSuccessPage'
 import PasswordResetRequestPage from './pages/PasswordResetRequestPage'
 import PasswordResetConfirmPage from './pages/PasswordResetConfirmPage'
+import { Toaster } from 'sonner'
 
 const App = () => {
 
@@ -23,30 +24,32 @@ const App = () => {
       <BrowserRouter>
         <AuthProvider>
 
-          <HeaderComponent/>
+          {/* <HeaderComponent/> */}
 
-          <Routes>
+            <Routes>
 
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/signup' element={<SignupPage />} />
-            <Route path='/landing' element={<LandingPage />} />
-            <Route path='/activate/:uid/:token' element={<ActivationSuccessPage />} />
-            <Route path="/request-password-reset" element={<PasswordResetRequestPage />} />
-            <Route path="/reset-password-confirm/:uidb64/:token" element={<PasswordResetConfirmPage />} />
+              <Route path='/login' element={<LoginPage />} />
+              <Route path='/signup' element={<SignupPage />} />
+              <Route path='/landing' element={<LandingPage />} />
+              <Route path='/activate/:uid/:token' element={<ActivationSuccessPage />} />
+              <Route path="/request-password-reset" element={<PasswordResetRequestPage />} />
+              <Route path="/reset-password-confirm/:uidb64/:token" element={<PasswordResetConfirmPage />} />
 
-            
-            <Route element={<PrivateRoutes />}>
-              <Route path='*' element={<NoPage />} />
-              <Route index element={<HomePage />} />
-              <Route path='/home' element={<HomePage />} />
-              <Route path='/contact' element={<ContactPage />} />
-              <Route path='/about' element={<AboutPage />} />
-            </Route>
+              
+              <Route element={<PrivateRoutes />}>
+                <Route path='*' element={<NoPage />} />
+                <Route index element={<HomePage />} />
+                <Route path='/home' element={<HomePage />} />
+                <Route path='/contact' element={<ContactPage />} />
+                <Route path='/about' element={<AboutPage />} />
+              </Route>
 
-          </Routes>
+            </Routes>
+
 
         </AuthProvider>
       </BrowserRouter>
+      <Toaster richColors closeButton className="pointer-events-auto" />
     </div>
   )
 }

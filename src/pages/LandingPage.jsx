@@ -1,4 +1,5 @@
 import React from 'react'
+import { DrawerDemo } from '@/components/DrawerDemo'
 
 function LandingPage() {
   return (

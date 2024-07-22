@@ -17,6 +17,14 @@ module.exports = {
       },
     },
     extend: {
+      width: {
+        '560': '560px',
+        '340': '340px',
+      },
+      height: {
+        '315': '315px',
+        '210': '210px',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
