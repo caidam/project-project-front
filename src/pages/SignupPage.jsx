@@ -1,49 +1,69 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { DJ_BASE_URL } from '../config'
+import React, { useState } from 'react';
+import { DJ_BASE_URL } from '../config';
+import { SignUpForm } from '@/components/LoginFormComponent';
+import { toast, Toaster } from 'sonner';
 
 const SignupPage = () => {
+  const [errors, setErrors] = useState({});
 
-  const navigate = useNavigate()
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
 
-  let signupUser = async (e) => {
-    e.preventDefault()
+  const validateForm = (username, email, password) => {
+    const newErrors = {};
+    if (!username) newErrors.username = 'Username is required';
+    else if (username.length < 5) newErrors.username = 'Username must be at least 5 characters long';
+    if (!email) newErrors.email = 'Email is required';
+    else if (!validateEmail(email)) newErrors.email = 'Invalid email format';
+    if (!password) newErrors.password = 'Password is required';
+    else if (password.length < 5) newErrors.password = 'Password must be at least 5 characters long';
+    return newErrors;
+  };
 
-    let response = await fetch(`${DJ_BASE_URL}/api/register/`, {
-        method:'POST',
-        headers:{
-            'Content-Type':'application/json'
-        },
-        body:JSON.stringify({
-            'username':e.target.username.value, 
-            'email':e.target.email.value,
-            'password':e.target.password.value
-        })
+  const signupUser = async (e) => {
+    e.preventDefault();
+
+    const username = e.target.username.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    const formErrors = validateForm(username, email, password);
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      Object.values(formErrors).forEach(error => toast.error(error));
+      return;
+    }
+
+    const signupPromise = fetch(`${DJ_BASE_URL}/api/register/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, email, password }),
+    }).then(response => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        throw new Error('Something went wrong!');
+      }
     });
 
-    let data = await response.json()
-
-    // if (response.status == 201) {
-    if (response.status == 200) {
-        alert('Account created successfully! Please check your email to verify your account.');
-        navigate('/login');
-    } else {
-        alert('Something went wrong!');
-    }
-  }
+    toast.promise(signupPromise, {
+      loading: 'Loading...',
+      success: 'Account created successfully! Please check your email to verify your account.',
+      error: 'Something went wrong!',
+    })
+  };
 
   return (
-    <div>
-        <h1>Signup Page</h1>
-        <p>Define your login credentials.</p>
-        <form onSubmit={signupUser}>
-            <input type="text" name="username" placeholder='Select Username' />
-            <input type="email" name="email" placeholder='Enter Email' />
-            <input type="password" name="password" placeholder='Select Password' />
-            <input type="submit" />
-        </form>
+    <div className="flex items-center justify-center min-h-screen">
+      <SignUpForm signupUser={signupUser} />
+      <Toaster richColors closeButton />
     </div>
-  )
-}
+  );
+};
 
-export default SignupPage
+export default SignupPage;
+
