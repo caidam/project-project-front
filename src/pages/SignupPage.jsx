@@ -54,7 +54,7 @@ const SignupPage = () => {
       loading: 'Loading...',
       success: 'Account created successfully! Please check your email to verify your account.',
       error: 'Something went wrong!',
-    });
+    })
   };
 
   return (

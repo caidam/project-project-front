@@ -1,42 +1,62 @@
-import React from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { DJ_BASE_URL } from '../config'
+import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { DJ_BASE_URL } from '../config';
+import { PasswordResetConfirmForm } from '@/components/LoginFormComponent';
+import { toast, Toaster } from 'sonner';
 
 const PasswordResetConfirmPage = () => {
-  const navigate = useNavigate()
-  const { uidb64, token } = useParams()
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+  const { uidb64, token } = useParams();
 
-  let confirmPasswordReset = async (e) => {
-    e.preventDefault()
+  const validateForm = (password) => {
+    const newErrors = {};
+    if (!password) newErrors.password = 'Password is required';
+    else if (password.length < 5) newErrors.password = 'Password must be at least 5 characters long';
+    return newErrors;
+  };
 
-    let response = await fetch(`${DJ_BASE_URL}/api/reset-password-confirm/${uidb64}/${token}/`, {
-        method:'POST',
-        headers:{
-            'Content-Type':'application/json'
-        },
-        body:JSON.stringify({
-            'password':e.target.password.value
-        })
+  const confirmPasswordReset = async (e) => {
+    e.preventDefault();
+
+    const password = e.target.password.value;
+
+    const formErrors = validateForm(password);
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      Object.values(formErrors).forEach(error => toast.error(error));
+      return;
+    }
+
+    const resetPromise = fetch(`${DJ_BASE_URL}/api/reset-password-confirm/${uidb64}/${token}/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ password }),
+    }).then(response => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        throw new Error('Something went wrong!');
+      }
     });
 
-    if (response.status == 200) {
-        alert('Password has been reset.');
-        navigate('/login');
-    } else {
-        alert('Something went wrong!');
-    }
-  }
+    toast.promise(resetPromise, {
+      loading: 'Loading...',
+      success: 'Password has been reset.',
+      error: 'Something went wrong!',
+    }).then(() => {
+      navigate('/login');
+    });
+  };
 
   return (
-    <div>
-        <h1>Password Reset Confirm Page</h1>
-        <p>Enter your new password.</p>
-        <form onSubmit={confirmPasswordReset}>
-            <input type="password" name="password" placeholder='Enter New Password' />
-            <input type="submit" />
-        </form>
+    <div className="flex items-center justify-center min-h-screen">
+      <PasswordResetConfirmForm confirmPasswordReset={confirmPasswordReset} />
+      <Toaster richColors closeButton />
     </div>
-  )
-}
+  );
+};
 
-export default PasswordResetConfirmPage
+export default PasswordResetConfirmPage;
