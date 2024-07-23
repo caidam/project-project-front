@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/drawer"
 // import Addsource from "./AddsourceComponent"
 
-export function DrawerDemo( props ) {
+export function DrawerComponent( props ) {
   const [goal, setGoal] = React.useState(350)
 
   function onClick(adjustment) {

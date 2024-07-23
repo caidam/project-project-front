@@ -45,7 +45,7 @@
 // export default HomePage
 
 
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import AuthContext from '../context/AuthContext';
 import useAxios from '../utils/useAxios';
 import YoutubeVideoCard from '../components/YoutubeVideoCard';
@@ -54,7 +54,7 @@ import Addsource from '../components/AddsourceComponent';
 import StopTrackingButton from '../components/StopTrackingButton';
 import Navbar from '@/components/Navbar';
 import { Dashboard } from '@/components/HomeComponent';
-import { DrawerDemo } from '@/components/DrawerDemo';
+import { DrawerComponent } from '@/components/DrawerComponent';
 
 const HomePage = () => {
 
@@ -65,14 +65,19 @@ const HomePage = () => {
 
   let api = useAxios()
 
+  // useEffect(() => {
+  //   console.log('Sources in HomePage:', sources);
+  // }, [sources]);
+
+
   return (
     <>
       <Navbar>
         
         <Dashboard>
-          <DrawerDemo>
-            <Addsource  sources={sources} setSourcesUpdateNeeded={setSourcesUpdateNeeded} setUserSourcesUpdateNeeded={setUserSourcesUpdateNeeded} />
-          </DrawerDemo>
+          <DrawerComponent>
+            <Addsource sources={sources} setSourcesUpdateNeeded={setSourcesUpdateNeeded} setUserSourcesUpdateNeeded={setUserSourcesUpdateNeeded} />
+          </DrawerComponent>
         </Dashboard>
 
       </Navbar>
