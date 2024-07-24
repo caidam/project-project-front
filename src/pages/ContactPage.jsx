@@ -9,7 +9,7 @@ const ContactPage = () => {
   const [sources, setSources, setSourcesUpdateNeeded] = useTrackedSources(); 
   const [userSources, setUserSources, setUserSourcesUpdateNeeded] = useUserSources();
 
-  const [combinedSourcesInfo] = useCombinedSourcesInfo(sources);
+  const [combinedSourcesInfo] = useCombinedSourcesInfo(sources, userSources);
 
   return (
     <>

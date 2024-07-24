@@ -56,30 +56,33 @@ const Addsource = ({ sources, setSourcesUpdateNeeded, setUserSourcesUpdateNeeded
         const isTracked = sources.some(source => source.url.toLowerCase() === url.toLowerCase());
 
         if (isTracked) {
-            toast.error('This URL is already being tracked.');
+            toast.info('This video is already being tracked');
             console.log('already tracked');
             return;
         }
-    
-        try {
-            const response = await api.post('/api/usersources/', { source_url: url }, {
+
+        // Use toast.promise to handle the promise
+        toast.promise(
+            api.post('/api/usersources/', { source_url: url }, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-            });
-            if ([200, 201].includes(response.status)) {
-                const newSource = {
-                    id: response.data.id,
-                    url: url,
-                };
-                setSourcesUpdateNeeded(true);
-                setUserSourcesUpdateNeeded(true);
-                setIsSubmitted(true);
+            }),
+            {
+                loading: 'Loading...',
+                success: (response) => {
+                    const newSource = {
+                        id: response.data.id,
+                        url: url,
+                    };
+                    setSourcesUpdateNeeded(true);
+                    setUserSourcesUpdateNeeded(true);
+                    setIsSubmitted(true);
+                    return `The video has been added`;
+                },
+                error: 'Error adding source',
             }
-        } catch (error) {
-            console.error('Error adding source:', error);
-            toast.error('Error adding source');
-        }
+        );
     };
 
     // Render the component
@@ -102,7 +105,7 @@ const Addsource = ({ sources, setSourcesUpdateNeeded, setUserSourcesUpdateNeeded
                     />
                 </div>
 
-                {isSubmitted && <p>Source added successfully!</p>}
+                {/* {isSubmitted && <p>Source added successfully!</p>} */}
 
                 <div className="flex justify-center items-center w-full">
                     {youtubeUrl && <YouTubeVideoInfo url={youtubeUrl} onValidUrlChange={setIsValidUrl} />}

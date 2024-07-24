@@ -37,11 +37,15 @@ const AboutPage = () => {
     console.log('Sources in AboutPage:', sources);
   }, [sources]);
 
+  useEffect(() => {
+    console.log('UserSources in AboutPage:', userSources);
+  }, [userSources]);
+
   return (
     <>
         <Navbar>
           <Dashboard2>
-            <DataTableDemo2 sources={sources} >
+            <DataTableDemo2 sources={sources} userSources={userSources} setSourcesUpdateNeeded={setSourcesUpdateNeeded} setUserSourcesUpdateNeeded={setUserSourcesUpdateNeeded} >
               <DrawerComponent>
                 <Addsource sources={sources} setSourcesUpdateNeeded={setSourcesUpdateNeeded} setUserSourcesUpdateNeeded={setUserSourcesUpdateNeeded} />
               </DrawerComponent>

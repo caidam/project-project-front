@@ -28,7 +28,7 @@ export function DrawerComponent( props ) {
         <Button size="sm" className="h-8 gap-1">
                   <PlusCircle className="h-3.5 w-3.5" />
                   <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                    Add Source
+                    Add Video
                   </span>
         </Button>
         {/* <Button variant="outline">Open Drawer</Button> */}
@@ -36,10 +36,10 @@ export function DrawerComponent( props ) {
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle>Move Goal</DrawerTitle>
-            <DrawerDescription>Set your daily activity goal.</DrawerDescription>
+            <DrawerTitle className="m-4">Add A New Video</DrawerTitle>
+            <DrawerDescription>Submit the YouTube URL of the video you want to track</DrawerDescription>
           </DrawerHeader>
-          <div className="p-4 pb-0">
+          <div className="pt-0 p-4 pb-0">
 
             {/* <Addsource/> */}
             {props.children}
@@ -48,7 +48,7 @@ export function DrawerComponent( props ) {
           <DrawerFooter>
             {/* <Button>Submit</Button> */}
             <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline">Exit</Button>
             </DrawerClose>
           </DrawerFooter>
         </div>

@@ -25,9 +25,9 @@ export function Dashboard2( props ) {
             <TabsContent value="all">
               <Card x-chunk="dashboard-06-chunk-0">
                 <CardHeader>
-                  <CardTitle>Products</CardTitle>
+                  <CardTitle>Tracked Videos</CardTitle>
                   <CardDescription>
-                    Manage your products and view their sales performance.
+                    Manage your tracked videos and add new ones
                   </CardDescription>
                 </CardHeader>
                 <CardContent>

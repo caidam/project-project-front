@@ -58,7 +58,7 @@ export const useUserSources = () => {
 };
 
 // test stop tracking
-export const useStopTracking = () => {
+export const useStopTracking = (setSourcesUpdateNeeded, setUserSourcesUpdateNeeded) => {
   const api = useAxios();
 
   const stopTracking = async (sourceUrl, userSourceId) => {
@@ -69,9 +69,15 @@ export const useStopTracking = () => {
 
       if (response.status === 200) {
         console.log('Successfully stopped tracking source:', response.data);
+        setSourcesUpdateNeeded(true);
+        setUserSourcesUpdateNeeded(true);
+        return { success: true
+          , data: response.data 
+        };
       }
     } catch (error) {
       console.error('Error stopping tracking source:', error);
+      return { success: false, error };
     }
   };
 
