@@ -1,6 +1,6 @@
 // Navbar.jsx
 import React, { useContext } from 'react'
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import Image from "./CustomImage"
 import {
   Home,
@@ -8,10 +8,12 @@ import {
   Package,
   Package2,
   PanelLeft,
-  Search,
-  Settings,
-  ShoppingCart,
-  Users2,
+  User,
+  TvMinimalPlayIcon,
+  Moon,
+  Sun,
+  Focus,
+  Sticker,
 } from "lucide-react"
 
 import {
@@ -40,10 +42,99 @@ import {
   TooltipProvider,
 } from "@/components/ui/tooltip"
 import AuthContext from '../context/AuthContext'
+import { useTheme } from '@/context/ThemeContext'
+import { Separator } from './ui/separator'
 
 const Navbar = ( props ) => {
 
     let { user, logoutUser } = useContext(AuthContext)
+
+    const { theme, changeTheme } = useTheme();
+    const handleThemeToggle = () => {
+      changeTheme(theme === 'light' ? 'dark' : 'light');
+    };
+
+    const location = useLocation();
+
+    const getBreadcrumbs = () => {
+      switch (location.pathname) {
+        case '/tth':
+          return (
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/">Dashboard</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          );
+        case '/':
+          return (
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/">Analytics</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/">Tracked Videos</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          );
+          case '/analytics/focus':
+            return (
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link to="/">Analytics</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link to="/">Tracked Videos</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Focus</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            );
+            case '/about':
+              return (
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink asChild>
+                      <Link to="/about">About</Link>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              );
+              case '/contact':
+                return (
+                  <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink asChild>
+                      <Link to="/contact">Discovery</Link>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbLink asChild>
+                      <Link to="/contact">Random music videos tracked by other users</Link>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+                );
+        // Add more cases for other routes
+        default:
+          return null;
+      }
+    };
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -53,11 +144,12 @@ const Navbar = ( props ) => {
             href="#"
             className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
           >
-            <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
-            <span className="sr-only">Acme Inc</span>
+            <TvMinimalPlayIcon className="h-4 w-4 transition-all group-hover:scale-110" />
+            <span className="sr-only">YouTube Video Tracker</span>
           </Link>
+          <Separator />
           <TooltipProvider>
-            <Tooltip>
+            {/* <Tooltip>
               <TooltipTrigger asChild>
                 <Link
                   href="#"
@@ -68,8 +160,8 @@ const Navbar = ( props ) => {
                 </Link>
               </TooltipTrigger>
               <TooltipContent side="right">Dashboard</TooltipContent>
-            </Tooltip>
-            <Tooltip>
+            </Tooltip> */}
+            {/* <Tooltip>
               <TooltipTrigger asChild>
                 <Link
                   href="#"
@@ -80,35 +172,11 @@ const Navbar = ( props ) => {
                 </Link>
               </TooltipTrigger>
               <TooltipContent side="right">Orders</TooltipContent>
-            </Tooltip>
+            </Tooltip> */}
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
-                  href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Package className="h-5 w-5" />
-                  <span className="sr-only">Products</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Products</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Users2 className="h-5 w-5" />
-                  <span className="sr-only">Customers</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Customers</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="#"
+                  to='/'
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <LineChart className="h-5 w-5" />
@@ -117,11 +185,38 @@ const Navbar = ( props ) => {
               </TooltipTrigger>
               <TooltipContent side="right">Analytics</TooltipContent>
             </Tooltip>
-          </TooltipProvider>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link
+                  to='/contact'
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                >
+                  <Focus className="h-5 w-5" />
+                  <span className="sr-only">Discovery</span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right">Discovery</TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link
+                  to='/about'
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                >
+                  <Sticker className="h-5 w-5" />
+                  <span className="sr-only">About</span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right">About</TooltipContent>
+            </Tooltip>
+            </TooltipProvider>
         </nav>
         <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+        <Separator />
           <TooltipProvider>
-            <Tooltip>
+            {/* <Tooltip>
               <TooltipTrigger asChild>
                 <Link
                   href="#"
@@ -132,10 +227,30 @@ const Navbar = ( props ) => {
                 </Link>
               </TooltipTrigger>
               <TooltipContent side="right">Settings</TooltipContent>
+            </Tooltip> */}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                  onClick={handleThemeToggle}
+                >
+                  {theme === 'light' ? (
+                    <Sun className="h-5 w-5" />
+                  ) : (
+                    <Moon className="h-5 w-5" />
+                  )}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                {theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+              </TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </nav>
       </aside>
+
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <Sheet>
@@ -151,66 +266,70 @@ const Navbar = ( props ) => {
                   href="#"
                   className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                 >
-                  <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
-                  <span className="sr-only">Acme Inc</span>
+                  <TvMinimalPlayIcon className="h-5 w-5 transition-all group-hover:scale-110" />
+                  <span className="sr-only">Youtube Video Tracker</span>
                 </Link>
-                <Link
+                <Separator />
+                {/* <Link
                   href="#"
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <Home className="h-5 w-5" />
                   Dashboard
-                </Link>
-                <Link
+                </Link> */}
+                {/* <Link
                   href="#"
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <ShoppingCart className="h-5 w-5" />
                   Orders
-                </Link>
+                </Link> */}
                 <Link
-                  href="#"
+                  to='/'
                   className="flex items-center gap-4 px-2.5 text-foreground"
                 >
-                  <Package className="h-5 w-5" />
-                  Products
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Users2 className="h-5 w-5" />
-                  Customers
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
                   <LineChart className="h-5 w-5" />
-                  Settings
+                  Analytics
+                </Link>
+
+                <Link
+                  to='/contact'
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                >
+                  <Focus className="h-5 w-5" />
+                  Discovery
+                </Link>
+
+                <Link
+                  to='/about'
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                >
+                  <Sticker className="h-5 w-5" />
+                  About
+                </Link>
+                <Separator />
+                <Link
+                  href="#"
+                  className="flex items-center gap-4 px-2.5 !text-muted-foreground hover:text-foreground"
+                  onClick={handleThemeToggle}
+                >
+                  {theme === 'light' ? (
+                    <Sun className="h-5 w-5" />
+                  ) : (
+                    <Moon className="h-5 w-5" />
+                  )}
+                  {theme === 'light' ? 'Dark Theme' : 'Light Theme'}
                 </Link>
               </nav>
             </SheetContent>
           </Sheet>
+
           <Breadcrumb className="hidden md:flex">
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href="#">Dashboard</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href="#">Products</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>All Products</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
+
+            {getBreadcrumbs()}
+
           </Breadcrumb>
+
           <div className="relative ml-auto flex-1 md:grow-0">
             {/* <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
@@ -219,6 +338,7 @@ const Navbar = ( props ) => {
               className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
             /> */}
           </div>
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -226,20 +346,23 @@ const Navbar = ( props ) => {
                 size="icon"
                 className="overflow-hidden rounded-full"
               >
-                <Image
+                <User className="h-5 w-5 transition-all group-hover:scale-110" />
+                {/* <Image
                   src="/placeholder-user.jpg"
                   width={36}
                   height={36}
                   alt="Avatar"
                   className="overflow-hidden rounded-full"
-                />
+                /> */}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>{user.username}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
+              <Link to="/request-password-reset"><DropdownMenuItem>Update Password</DropdownMenuItem></Link>
+              <DropdownMenuItem className="bg-accent-foreground text-accent">
+                Delete Account
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <Link onClick={ logoutUser } > <DropdownMenuItem> Logout </DropdownMenuItem> </Link>
             </DropdownMenuContent>

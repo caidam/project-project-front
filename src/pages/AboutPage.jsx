@@ -1,59 +1,50 @@
-// import React from 'react'
-// import HeaderComponent from '../components/HeaderComponent'
-// import { DataTableDemo } from '@/components/DataTableComponent'
-// import Navbar from '@/components/Navbar'
-// import { DataTableDemo2 } from '@/components/DataTableComponent2'
-// import { Dashboard2 } from '@/components/test'
-
-// const AboutPage = () => {
-//   return (
-//     <>
-//         <Navbar>
-//           {/* <DataTableDemo/> */}
-//           <DataTableDemo2/>
-//         </Navbar>
-//     </>
-//   )
-// }
-
-// export default AboutPage
-
-import React, { useContext, useEffect } from 'react'
-import HeaderComponent from '../components/HeaderComponent'
-import { DataTableDemo } from '@/components/DataTableComponent'
+import React from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+  } from "@/components/ui/card"
+  import {
+    Tabs,
+    TabsContent,
+  } from "@/components/ui/tabs"
 import Navbar from '@/components/Navbar'
-import { DataTableDemo2 } from '@/components/DataTableComponent2'
-import { Dashboard2 } from '@/components/test'
-import { DrawerComponent } from '@/components/DrawerComponent'
-import Addsource from '@/components/AddsourceComponent'
-import { useTrackedSources, useUserSources } from '../hooks/useTrackedSources';
 
-const AboutPage = () => {
-
-  const [sources, setSources, setSourcesUpdateNeeded] = useTrackedSources(); 
-  const [userSources, setUserSources, setUserSourcesUpdateNeeded] = useUserSources();
-
-  useEffect(() => {
-    console.log('Sources in AboutPage:', sources);
-  }, [sources]);
-
-  useEffect(() => {
-    console.log('UserSources in AboutPage:', userSources);
-  }, [userSources]);
-
+export default function DiscoveryComponent() {
   return (
-    <>
-        <Navbar>
-          <Dashboard2>
-            <DataTableDemo2 sources={sources} userSources={userSources} setSourcesUpdateNeeded={setSourcesUpdateNeeded} setUserSourcesUpdateNeeded={setUserSourcesUpdateNeeded} >
-              <DrawerComponent>
-                <Addsource sources={sources} setSourcesUpdateNeeded={setSourcesUpdateNeeded} setUserSourcesUpdateNeeded={setUserSourcesUpdateNeeded} />
-              </DrawerComponent>
-            </DataTableDemo2>
-          </Dashboard2>
-        </Navbar>
-    </>
+
+    <Navbar>
+    <div className="w-full max-w-full">
+      <Tabs defaultValue="all">
+        <div className="flex items-center">
+          <div className="ml-auto flex items-center gap-2">
+            {/* Additional content */}
+          </div>
+        </div>
+        <TabsContent value="all">
+          <Card x-chunk="dashboard-06-chunk-0">
+            <CardHeader>
+              <CardTitle>About this project</CardTitle>
+              <CardDescription>
+                Music discovery by way of visual curation
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="w-full">
+                
+                {/* {props.children} */}
+
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
+    </Navbar>
+
   )
 }
-
-export default AboutPage

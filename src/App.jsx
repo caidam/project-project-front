@@ -15,6 +15,7 @@ import LandingPage from './pages/LandingPage'
 import ActivationSuccessPage from './pages/ActivationSuccessPage'
 import PasswordResetRequestPage from './pages/PasswordResetRequestPage'
 import PasswordResetConfirmPage from './pages/PasswordResetConfirmPage'
+import TrackFocusPage from './pages/TrackFocusPage'
 import { Toaster } from 'sonner'
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
                 <Route path='*' element={<NoPage />} />
                 <Route index element={<HomePage />} />
                 <Route path='/home' element={<HomePage />} />
+                <Route path='/analytics/focus' element={<TrackFocusPage />} />
                 <Route path='/contact' element={<ContactPage />} />
                 <Route path='/about' element={<AboutPage />} />
               </Route>

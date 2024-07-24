@@ -33,6 +33,7 @@ import { useCombinedSourcesInfo } from '@/hooks/useCombinedSourcesInfo'
 import { useStopTracking } from '@/hooks/useTrackedSources'
 import ConfirmationToaster from './ConfirmationToasterComponent'
 import { toast } from 'sonner'
+import { Link } from 'react-router-dom'
 
 // const columns = [
 //   {
@@ -152,7 +153,8 @@ export function DataTableDemo2( { sources, userSources, setSourcesUpdateNeeded, 
       accessorKey: "thumbnail_url",
       header: "",
       cell: ({ row }) => (
-        <a href={row.original.url} target='parent_'>
+        // <a href={row.original.url} target='parent_'>
+        <Link to='/analytics/focus'>
         <Image
           alt="Thumbnail url"
           className="aspect-square rounded-md object-cover"
@@ -160,7 +162,8 @@ export function DataTableDemo2( { sources, userSources, setSourcesUpdateNeeded, 
           src={row.getValue("thumbnail_url")}
           width="100px"
         />
-        </a>
+        </Link>
+        // </a>
       ),
       enableSorting: false,
       enableHiding: true,
@@ -180,9 +183,11 @@ export function DataTableDemo2( { sources, userSources, setSourcesUpdateNeeded, 
       accessorKey: "title",
       header: "Title",
       cell: ({ row }) => (
-        <a href={row.original.url} target='parent_'>
+        // <a href={row.original.url} target='parent_'>
+        <Link to='/analytics/focus'>
         <div className="font-medium">{row.getValue("title")}</div>
-        </a>
+        </Link>
+        // </a>
       ),
       // enableSorting: true,
       enableHiding: false,
@@ -231,11 +236,11 @@ export function DataTableDemo2( { sources, userSources, setSourcesUpdateNeeded, 
                 <ConfirmationToaster onConfirm={handleStopTracking} />
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <a href={row.original.author_url} target='parent_'>
-              <DropdownMenuItem>View Channel</DropdownMenuItem>
-              </a>
               <a href={row.original.url} target='parent_'>
               <DropdownMenuItem>Watch Video</DropdownMenuItem>
+              </a>
+              <a href={row.original.author_url} target='parent_'>
+              <DropdownMenuItem>View Channel</DropdownMenuItem>
               </a>
             </DropdownMenuContent>
           </DropdownMenu>

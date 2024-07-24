@@ -33,7 +33,7 @@ export function DrawerComponent( props ) {
         </Button>
         {/* <Button variant="outline">Open Drawer</Button> */}
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className='bg-card'>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
             <DrawerTitle className="m-4">Add A New Video</DrawerTitle>
