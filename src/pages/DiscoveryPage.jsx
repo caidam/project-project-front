@@ -3,11 +3,11 @@ import HeaderComponent from '../components/HeaderComponent'
 import { useCombinedSourcesInfo } from '@/hooks/useCombinedSourcesInfo'
 import { useTrackedSources, useUserSources } from '../hooks/useTrackedSources';
 import Navbar from '@/components/Navbar';
-import DiscoveryComponent from '@/components/DiscoveryComponent';
+// import DiscoveryComponent from '@/components/DiscoveryComponent';
 import YouTubeVideoInfoStatic from '@/components/YoutubeVideoInfoStatic';
+import DiscoveryDialogComponent from '@/components/DiscoveryDialogComponent';
 
-
-const ContactPage = () => {
+const DiscoveryPage = () => {
 
   const [sources, setSources, setSourcesUpdateNeeded] = useTrackedSources(); 
   const [userSources, setUserSources, setUserSourcesUpdateNeeded] = useUserSources();
@@ -18,17 +18,17 @@ const ContactPage = () => {
     <>
       <Navbar>
 
-          <DiscoveryComponent>
-            {/* <div>
-              <h1>Combined Sources Information</h1>
-              <pre>{JSON.stringify(combinedSourcesInfo, null, 2)}</pre>
-            </div> */}
+          <DiscoveryDialogComponent>
+
             <YouTubeVideoInfoStatic url='https://www.youtube.com/watch?v=Vswhnqjoow4' />
-          </DiscoveryComponent>
+
+          </DiscoveryDialogComponent>
+
+
       </Navbar>
 
     </>
   )
 }
 
-export default ContactPage
+export default DiscoveryPage

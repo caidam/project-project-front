@@ -1,6 +1,4 @@
 import React from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import {
     Card,
     CardContent,
@@ -28,8 +26,8 @@ export default function DiscoveryComponent() {
         <TabsContent value="all">
           <Card x-chunk="dashboard-06-chunk-0">
             <CardHeader>
-              <CardTitle>About this project</CardTitle>
-              <CardDescription>
+              <CardTitle className="mb-10">About this project</CardTitle>
+              <CardDescription className="text-md">
                 Music discovery by way of visual curation
               </CardDescription>
             </CardHeader>

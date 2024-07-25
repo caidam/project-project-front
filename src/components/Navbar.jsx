@@ -114,18 +114,18 @@ const Navbar = ( props ) => {
                   </BreadcrumbItem>
                 </BreadcrumbList>
               );
-              case '/contact':
+              case '/discovery':
                 return (
                   <BreadcrumbList>
                   <BreadcrumbItem>
                     <BreadcrumbLink asChild>
-                      <Link to="/contact">Discovery</Link>
+                      <Link to="/discovery">Discovery</Link>
                     </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator />
                   <BreadcrumbItem>
                     <BreadcrumbLink asChild>
-                      <Link to="/contact">Random music videos tracked by other users</Link>
+                      <Link to="/discovery">Community Gems</Link>
                     </BreadcrumbLink>
                   </BreadcrumbItem>
                 </BreadcrumbList>
@@ -145,7 +145,7 @@ const Navbar = ( props ) => {
             className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
           >
             <TvMinimalPlayIcon className="h-4 w-4 transition-all group-hover:scale-110" />
-            <span className="sr-only">YouTube Video Tracker</span>
+            <span className="sr-only">Music Video Vault</span>
           </Link>
           <Separator />
           <TooltipProvider>
@@ -189,7 +189,7 @@ const Navbar = ( props ) => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
-                  to='/contact'
+                  to='/discovery'
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <Focus className="h-5 w-5" />
@@ -267,7 +267,7 @@ const Navbar = ( props ) => {
                   className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                 >
                   <TvMinimalPlayIcon className="h-5 w-5 transition-all group-hover:scale-110" />
-                  <span className="sr-only">Youtube Video Tracker</span>
+                  <span className="sr-only">Music Video Vault</span>
                 </Link>
                 <Separator />
                 {/* <Link
@@ -286,14 +286,14 @@ const Navbar = ( props ) => {
                 </Link> */}
                 <Link
                   to='/'
-                  className="flex items-center gap-4 px-2.5 text-foreground"
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <LineChart className="h-5 w-5" />
                   Analytics
                 </Link>
 
                 <Link
-                  to='/contact'
+                  to='/discovery'
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <Focus className="h-5 w-5" />

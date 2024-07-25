@@ -1,14 +1,14 @@
 import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+// import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { AuthProvider } from './context/AuthContext'
 // Pages
 import HomePage from './pages/HomePage'
-import ContactPage from './pages/ContactPage'
+import DiscoveryPage from './pages/DiscoveryPage'
 import AboutPage from './pages/AboutPage'
 import NoPage from './pages/NoPage'
 import LoginPage from './pages/LoginPage'
-import HeaderComponent from './components/HeaderComponent'
 import PrivateRoutes from './utils/PrivateRoutes'
 import SignupPage from './pages/SignupPage'
 import LandingPage from './pages/LandingPage'
@@ -22,7 +22,8 @@ const App = () => {
 
   return (
     <div>
-      <BrowserRouter>
+      {/* <BrowserRouter basename="/project-project-front/"> */}
+      <Router>
         <AuthProvider>
 
           {/* <HeaderComponent/> */}
@@ -42,7 +43,7 @@ const App = () => {
                 <Route index element={<HomePage />} />
                 <Route path='/home' element={<HomePage />} />
                 <Route path='/analytics/focus' element={<TrackFocusPage />} />
-                <Route path='/contact' element={<ContactPage />} />
+                <Route path='/discovery' element={<DiscoveryPage />} />
                 <Route path='/about' element={<AboutPage />} />
               </Route>
 
@@ -50,7 +51,8 @@ const App = () => {
 
 
         </AuthProvider>
-      </BrowserRouter>
+        </Router>
+      {/* </BrowserRouter> */}
       <Toaster richColors closeButton className="pointer-events-auto" />
     </div>
   )

@@ -2,17 +2,17 @@ import React, { useState, useEffect, useContext } from 'react';
 import AuthContext from '../context/AuthContext'; // Importing AuthContext for user authentication
 import useAxios from '../utils/useAxios'; // Custom hook for making Axios requests
 import YouTubeVideoInfo from './YoutubeVideoInfo'; // Component to display YouTube video info
-import { Search, PlusCircle } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { toast, Toaster } from 'sonner';
+import { toast } from 'sonner';
+import axios from 'axios';
 
 // Define the Addsource component
 const Addsource = ({ sources, setSourcesUpdateNeeded, setUserSourcesUpdateNeeded }) => {
-
     useEffect(() => {
         console.log('Sources in Addsource:', sources);
-      }, [sources]);
+    }, [sources]);
 
     // Define state variables
     const [inputValue, setInputValue] = useState(''); // State to hold the input value from the form
@@ -22,20 +22,76 @@ const Addsource = ({ sources, setSourcesUpdateNeeded, setUserSourcesUpdateNeeded
     const api = useAxios(); // Custom hook to make API calls
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    // Function to set the YouTube URL
-    const handleSetUrl = () => {
-        setYoutubeUrl(inputValue);
+    // Function to get the final URL after following redirects
+    const getFinalUrl = async (shortenedUrl) => {
+        try {
+            let response = await axios.get(shortenedUrl, { validateStatus: status => status >= 200 && status < 400 });
+
+            // Follow redirects
+            while (response.status >= 300 && response.status < 400 && response.headers.location) {
+                const nextUrl = response.headers.location;
+                response = await axios.get(nextUrl, { validateStatus: status => status >= 200 && status < 400 });
+            }
+
+            return response.request.responseURL; // Get the final URL from the response
+        } catch (error) {
+            console.error('Error following redirect:', error);
+            // toast.error('Failed to resolve shortened URL');
+            return null;
+        }
     };
 
     // Function to clean the URL
     const cleanUrl = (url) => {
         try {
             const urlObj = new URL(url);
-            const videoId = urlObj.searchParams.get('v');
-            return `https://www.youtube.com/watch?v=${videoId}`;
+            let videoId = '';
+
+            // Handle YouTube shortened URLs
+            if (urlObj.hostname === 'youtu.be') {
+                videoId = urlObj.pathname.slice(1); // Remove the leading '/'
+            }
+            // Handle mobile YouTube URLs
+            else if (urlObj.hostname === 'm.youtube.com') {
+                videoId = urlObj.searchParams.get('v');
+            }
+            // Handle standard YouTube URLs
+            else if (urlObj.hostname === 'www.youtube.com' || urlObj.hostname === 'youtube.com') {
+                const params = new URLSearchParams(urlObj.search);
+                videoId = params.get('v');
+            }
+
+            // If videoId is extracted, return the canonical URL
+            if (videoId) {
+                return `https://www.youtube.com/watch?v=${videoId}`;
+            }
+
+            // If no valid videoId is found, show an error
+            // toast.error('Invalid YouTube URL');
+            return null;
         } catch (error) {
             toast.error('Invalid URL');
             return null;
+        }
+    };
+
+    // Function to set the YouTube URL
+    const handleSetUrl = async () => {
+        let cleanedUrl = cleanUrl(inputValue);
+
+        if (!cleanedUrl) {
+            // Check if the input URL is a shortened URL and resolve it
+            const finalUrl = await getFinalUrl(inputValue);
+            if (finalUrl) {
+                cleanedUrl = cleanUrl(finalUrl);
+            }
+        }
+
+        if (cleanedUrl) {
+            setYoutubeUrl(cleanedUrl);
+            setIsValidUrl(true);
+        } else {
+            setIsValidUrl(false);
         }
     };
 
