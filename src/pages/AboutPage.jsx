@@ -26,7 +26,7 @@ export default function DiscoveryComponent() {
         <TabsContent value="all">
           <Card x-chunk="dashboard-06-chunk-0">
             <CardHeader>
-              <CardTitle className="mb-10">About this project</CardTitle>
+              <CardTitle className="mb-10">About this website</CardTitle>
               <CardDescription className="text-md">
                 Music discovery by way of visual curation
               </CardDescription>
