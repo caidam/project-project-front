@@ -4,7 +4,7 @@ import { useCombinedSourcesInfo } from '@/hooks/useCombinedSourcesInfo'
 import { useTrackedSources, useUserSources } from '../hooks/useTrackedSources';
 import Navbar from '@/components/Navbar';
 import DiscoveryComponent from '@/components/DiscoveryComponent';
-import { YouTubeVideoInfoStatic } from '@/components/YoutubeVideoInfo';
+import YouTubeVideoInfoStatic from '@/components/YoutubeVideoInfoStatic';
 
 
 const ContactPage = () => {

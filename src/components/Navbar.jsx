@@ -237,14 +237,14 @@ const Navbar = ( props ) => {
                   onClick={handleThemeToggle}
                 >
                   {theme === 'light' ? (
-                    <Sun className="h-5 w-5" />
-                  ) : (
                     <Moon className="h-5 w-5" />
+                  ) : (
+                    <Sun className="h-5 w-5" />
                   )}
                 </Button>
               </TooltipTrigger>
               <TooltipContent side="right">
-                {theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+                {theme === 'light' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -314,11 +314,11 @@ const Navbar = ( props ) => {
                   onClick={handleThemeToggle}
                 >
                   {theme === 'light' ? (
-                    <Sun className="h-5 w-5" />
-                  ) : (
                     <Moon className="h-5 w-5" />
+                  ) : (
+                    <Sun className="h-5 w-5" />
                   )}
-                  {theme === 'light' ? 'Dark Theme' : 'Light Theme'}
+                  {theme === 'light' ? 'Switch Theme' : 'Switch Theme'}
                 </Link>
               </nav>
             </SheetContent>
