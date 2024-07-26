@@ -24,7 +24,13 @@ export function InputOTPWithSeparator({ setOtp, isOtpValid }) {
 
   return (
     <div>
-      <InputOTP maxLength={6} value={otp} onChange={handleOtpChange} disabled={isOtpValid} pattern={REGEXP_ONLY_DIGITS_AND_CHARS} >
+      <InputOTP 
+          maxLength={6} 
+          value={otp} 
+          onChange={handleOtpChange} 
+          disabled={isOtpValid} 
+          // pattern={REGEXP_ONLY_DIGITS_AND_CHARS} 
+      >
         <InputOTPGroup>
           <InputOTPSlot index={0} />
           <InputOTPSlot index={1} />

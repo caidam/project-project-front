@@ -164,9 +164,10 @@ export function SignUpFormOtp({ signupUser, isOtpValid, validateOtp }) {
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
-        <CardTitle className="text-2xl">Sign Up</CardTitle>
+        <CardTitle className="text-2xl">Sign Up </CardTitle>
         <CardDescription>
-          Enter your information to create an account
+          {!isOtpValid && "Enter your access code to sign up" }
+          {isOtpValid && "Enter your information to create an account" }
         </CardDescription>
       </CardHeader>
       <CardContent>

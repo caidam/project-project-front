@@ -10,7 +10,7 @@ import AboutPage from './pages/AboutPage'
 import NoPage from './pages/NoPage'
 import LoginPage from './pages/LoginPage'
 import PrivateRoutes from './utils/PrivateRoutes'
-import SignupPage from './pages/SignupPage'
+// import SignupPage from './pages/SignupPage'
 import SignupPageOtp from './pages/SignUpPageOtp'
 import LandingPage from './pages/LandingPage'
 import ActivationSuccessPage from './pages/ActivationSuccessPage'
@@ -18,8 +18,10 @@ import PasswordResetRequestPage from './pages/PasswordResetRequestPage'
 import PasswordResetConfirmPage from './pages/PasswordResetConfirmPage'
 import TrackFocusPage from './pages/TrackFocusPage'
 import { Toaster } from 'sonner'
+import { useMediaQuery } from './hooks/ScreenSizeComponent'
 
 const App = () => {
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
     <div>
@@ -55,7 +57,7 @@ const App = () => {
         </AuthProvider>
         </Router>
       {/* </BrowserRouter> */}
-      <Toaster richColors closeButton className="pointer-events-auto" />
+      <Toaster position={isMobile ? "top-center" : "bottom-right"} richColors closeButton className="pointer-events-auto" />
     </div>
   )
 }
