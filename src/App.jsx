@@ -11,6 +11,7 @@ import NoPage from './pages/NoPage'
 import LoginPage from './pages/LoginPage'
 import PrivateRoutes from './utils/PrivateRoutes'
 import SignupPage from './pages/SignupPage'
+import SignupPageOtp from './pages/SignUpPageOtp'
 import LandingPage from './pages/LandingPage'
 import ActivationSuccessPage from './pages/ActivationSuccessPage'
 import PasswordResetRequestPage from './pages/PasswordResetRequestPage'
@@ -31,7 +32,8 @@ const App = () => {
             <Routes>
 
               <Route path='/login' element={<LoginPage />} />
-              <Route path='/signup' element={<SignupPage />} />
+              <Route path='/signup' element={<SignupPageOtp />} />
+              {/* <Route path='/signupotp' element={<SignupPageOtp />} /> */}
               <Route path='/landing' element={<LandingPage />} />
               <Route path='/activate/:uid/:token' element={<ActivationSuccessPage />} />
               <Route path="/request-password-reset" element={<PasswordResetRequestPage />} />

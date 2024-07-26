@@ -65,7 +65,10 @@ export const YouTubeVideoInfoStatic = ({ url }) => {
             className="relative w-full" 
             style={{ 
               paddingBottom: '56.25%', /* 16:9 aspect ratio */ 
-              maxWidth: '1500px'} }
+              maxWidth: '1500px',
+              borderRadius: '--radius',
+              overflow: 'hidden'
+            } }
         >
           <iframe 
             className="absolute top-0 left-0 w-full h-full"
