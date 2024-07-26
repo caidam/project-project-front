@@ -45,17 +45,37 @@ import AuthContext from '../context/AuthContext'
 import { useTheme } from '@/context/ThemeContext'
 import { Separator } from './ui/separator'
 
+import ConfirmDeleteToaster from './ConfirmDeleteToasterComponent'
+import { useDeleteAccount } from '@/hooks/useDeleteAccount'
+import { toast } from 'sonner'
+
 const Navbar = ( props ) => {
 
+    // USER
     let { user, logoutUser } = useContext(AuthContext)
 
+    // LOCATION
+    const location = useLocation();
+
+    // THEME
     const { theme, changeTheme } = useTheme();
     const handleThemeToggle = () => {
       changeTheme(theme === 'light' ? 'dark' : 'light');
     };
 
-    const location = useLocation();
+    // DELETE ACCOUNT
 
+    const deleteAccount = useDeleteAccount();
+
+    const handleDeleteAccount = async () => {
+        toast.promise(deleteAccount(), {
+            loading: 'Deleting account...',
+            success: 'Goodbye, your account is now deleted!',
+            error: 'Error deleting account.',
+        });
+    };
+
+    // BREADCRUMBS
     const getBreadcrumbs = () => {
       switch (location.pathname) {
         case '/tth':
@@ -338,6 +358,8 @@ const Navbar = ( props ) => {
               className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
             /> */}
           </div>
+          
+          {/* PROFILE MENU */}
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -361,7 +383,8 @@ const Navbar = ( props ) => {
               <DropdownMenuSeparator />
               <Link to="/request-password-reset"><DropdownMenuItem>Update Password</DropdownMenuItem></Link>
               <DropdownMenuItem className="bg-accent-foreground text-accent">
-                Delete Account
+                {/* Delete Account */}
+                <ConfirmDeleteToaster onConfirm={handleDeleteAccount} />
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <Link onClick={ logoutUser } > <DropdownMenuItem> Logout </DropdownMenuItem> </Link>
