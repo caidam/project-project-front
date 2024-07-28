@@ -10,7 +10,7 @@ export function DiscoveryDialogComponent(props) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-center p-4" style={{ paddingBottom: '30vh' }}>
       <p className="mb-4 text-lg text-muted-foreground pb-20">
-        Click the button below to discover random music videos tracked by other users
+        Click below to discover random music videos tracked by other users
       </p>
       <Dialog>
         <DialogTrigger asChild>

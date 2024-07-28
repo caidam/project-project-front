@@ -66,7 +66,7 @@ export const YouTubeVideoInfoStatic = ({ url }) => {
             style={{ 
               paddingBottom: '56.25%', /* 16:9 aspect ratio */ 
               maxWidth: '1500px',
-              borderRadius: '--radius',
+              borderRadius: '0.5rem',
               overflow: 'hidden'
             } }
         >

@@ -179,7 +179,7 @@ const Addsource = ({ sources, setSourcesUpdateNeeded, setUserSourcesUpdateNeeded
                                     type="submit" 
                                     disabled={isSubmitted}
                                 >
-                                    Add Source
+                                    Add Video
                                 </Button>}
             </form>
         </>

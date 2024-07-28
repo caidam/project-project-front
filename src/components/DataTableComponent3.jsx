@@ -67,7 +67,8 @@ export function DataTableDemo2({
         accessorKey: 'title',
         header: 'Title',
         cell: ({ row }) => (
-          <Link to="/analytics/focus">
+          // <Link to="/analytics/focus">
+          <Link to={`/analytics/focus/${row.original.id}`}>
             <div className="font-medium">{row.getValue('title')}</div>
           </Link>
         ),
@@ -93,7 +94,7 @@ export function DataTableDemo2({
         accessorKey: 'thumbnail_url',
         header: '',
         cell: ({ row }) => (
-          <Link to="/analytics/focus">
+          <Link to={`/analytics/focus/${row.original.id}`}>
             <Image
               alt="Thumbnail url"
               className="aspect-square rounded-md object-cover"
@@ -147,7 +148,9 @@ export function DataTableDemo2({
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <a href={row.original.url} target="parent_">
-                <DropdownMenuItem>Watch Video</DropdownMenuItem>
+                <DropdownMenuItem>
+                  Watch Video
+                </DropdownMenuItem>
               </a>
               <a href={row.original.author_url} target="parent_">
                 <DropdownMenuItem>View Channel</DropdownMenuItem>

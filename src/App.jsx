@@ -46,7 +46,7 @@ const App = () => {
                 <Route path='*' element={<NoPage />} />
                 <Route index element={<HomePage />} />
                 <Route path='/home' element={<HomePage />} />
-                <Route path='/analytics/focus' element={<TrackFocusPage />} />
+                <Route path='/analytics/focus/:source_id' element={<TrackFocusPage />} />
                 <Route path='/discovery' element={<DiscoveryPage />} />
                 <Route path='/about' element={<AboutPage />} />
               </Route>
@@ -55,7 +55,7 @@ const App = () => {
 
 
         </AuthProvider>
-        </Router>
+      </Router>
       {/* </BrowserRouter> */}
       <Toaster position={isMobile ? "top-center" : "bottom-right"} richColors closeButton className="pointer-events-auto" />
     </div>

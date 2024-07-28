@@ -77,8 +77,10 @@ const Navbar = ( props ) => {
 
     // BREADCRUMBS
     const getBreadcrumbs = () => {
-      switch (location.pathname) {
-        case '/tth':
+      const { pathname } = location;
+    
+      switch (true) {
+        case pathname === '/tth':
           return (
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -88,7 +90,7 @@ const Navbar = ( props ) => {
               </BreadcrumbItem>
             </BreadcrumbList>
           );
-        case '/':
+        case pathname === '/':
           return (
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -104,57 +106,137 @@ const Navbar = ( props ) => {
               </BreadcrumbItem>
             </BreadcrumbList>
           );
-          case '/analytics/focus':
-            return (
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link to="/">Analytics</Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link to="/">Tracked Videos</Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Focus</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            );
-            case '/about':
-              return (
-                <BreadcrumbList>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink asChild>
-                      <Link to="/about">About</Link>
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              );
-              case '/discovery':
-                return (
-                  <BreadcrumbList>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink asChild>
-                      <Link to="/discovery">Discovery</Link>
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator />
-                  <BreadcrumbItem>
-                    <BreadcrumbLink asChild>
-                      <Link to="/discovery">Community Gems</Link>
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-                );
+        case /^\/analytics\/focus\/\d+$/.test(pathname):
+          // const id = pathname.match(/^\/analytics\/focus\/(\d+)$/)[1]; // Extract the id
+          return (
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/">Analytics</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/">Tracked Videos</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Focus</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          );
+        case pathname === '/about':
+          return (
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/about">About</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          );
+        case pathname === '/discovery':
+          return (
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/discovery">Discovery</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/discovery">Community Gems</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          );
         // Add more cases for other routes
         default:
           return null;
       }
     };
+    // const getBreadcrumbs = () => {
+    //   switch (location.pathname) {
+    //     case '/tth':
+    //       return (
+    //         <BreadcrumbList>
+    //           <BreadcrumbItem>
+    //             <BreadcrumbLink asChild>
+    //               <Link to="/">Dashboard</Link>
+    //             </BreadcrumbLink>
+    //           </BreadcrumbItem>
+    //         </BreadcrumbList>
+    //       );
+    //     case '/':
+    //       return (
+    //         <BreadcrumbList>
+    //           <BreadcrumbItem>
+    //             <BreadcrumbLink asChild>
+    //               <Link to="/">Analytics</Link>
+    //             </BreadcrumbLink>
+    //           </BreadcrumbItem>
+    //           <BreadcrumbSeparator />
+    //           <BreadcrumbItem>
+    //             <BreadcrumbLink asChild>
+    //               <Link to="/">Tracked Videos</Link>
+    //             </BreadcrumbLink>
+    //           </BreadcrumbItem>
+    //         </BreadcrumbList>
+    //       );
+    //       case '/analytics/focus':
+    //         return (
+    //           <BreadcrumbList>
+    //             <BreadcrumbItem>
+    //               <BreadcrumbLink asChild>
+    //                 <Link to="/">Analytics</Link>
+    //               </BreadcrumbLink>
+    //             </BreadcrumbItem>
+    //             <BreadcrumbSeparator />
+    //             <BreadcrumbItem>
+    //               <BreadcrumbLink asChild>
+    //                 <Link to="/">Tracked Videos</Link>
+    //               </BreadcrumbLink>
+    //             </BreadcrumbItem>
+    //             <BreadcrumbSeparator />
+    //             <BreadcrumbItem>
+    //               <BreadcrumbPage>Focus</BreadcrumbPage>
+    //             </BreadcrumbItem>
+    //           </BreadcrumbList>
+    //         );
+    //         case '/about':
+    //           return (
+    //             <BreadcrumbList>
+    //               <BreadcrumbItem>
+    //                 <BreadcrumbLink asChild>
+    //                   <Link to="/about">About</Link>
+    //                 </BreadcrumbLink>
+    //               </BreadcrumbItem>
+    //             </BreadcrumbList>
+    //           );
+    //           case '/discovery':
+    //             return (
+    //               <BreadcrumbList>
+    //               <BreadcrumbItem>
+    //                 <BreadcrumbLink asChild>
+    //                   <Link to="/discovery">Discovery</Link>
+    //                 </BreadcrumbLink>
+    //               </BreadcrumbItem>
+    //               <BreadcrumbSeparator />
+    //               <BreadcrumbItem>
+    //                 <BreadcrumbLink asChild>
+    //                   <Link to="/discovery">Community Gems</Link>
+    //                 </BreadcrumbLink>
+    //               </BreadcrumbItem>
+    //             </BreadcrumbList>
+    //             );
+    //     // Add more cases for other routes
+    //     default:
+    //       return null;
+    //   }
+    // };
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -165,7 +247,7 @@ const Navbar = ( props ) => {
             className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
           >
             <TvMinimalPlayIcon className="h-4 w-4 transition-all group-hover:scale-110" />
-            <span className="sr-only">Music Video Vault</span>
+            <span className="sr-only">Music Video Tracker</span>
           </Link>
           <Separator />
           <TooltipProvider>
@@ -287,7 +369,7 @@ const Navbar = ( props ) => {
                   className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                 >
                   <TvMinimalPlayIcon className="h-5 w-5 transition-all group-hover:scale-110" />
-                  <span className="sr-only">Music Video Vault</span>
+                  <span className="sr-only">Music Video Tracker</span>
                 </Link>
                 <Separator />
                 {/* <Link

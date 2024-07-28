@@ -2,4 +2,4 @@
 
 export const DJ_BASE_URL = 'https://7ox9irnqq1.execute-api.eu-north-1.amazonaws.com/dev';
 
-export const FIXED_OTP = "123456";
+export const FIXED_OTP = "123458";
