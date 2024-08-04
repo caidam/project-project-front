@@ -41,8 +41,13 @@ function AreaChartCard({ data }) {
   // Transform the data to the format needed by the BarChart
   const chartData = limitedData.map(item => ({
     date: item.ref_day,
-    time: item[fieldName] || limitedAvgValue, // Ensure a value is present for the chart
+    time: item[fieldName] || 0, // Ensure a value is present for the chart
   }));
+
+  const formattedLimitedAvgValue = limitedAvgValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+  const DailyVideoData = data[data.length - 1]?.[fieldName] || 0;
+  const formattedDailyVideoData = DailyVideoData.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 
   return (
     <div>
@@ -52,14 +57,14 @@ function AreaChartCard({ data }) {
           <CardHeader className="space-y-0 pb-0">
             <CardDescription>Likes Evolution</CardDescription>
             <CardTitle className="flex items-baseline gap-1 text-4xl tabular-nums">
-              8
+              {formattedDailyVideoData}
               <span className="font-sans text-sm font-normal tracking-normal text-muted-foreground">
-                hr
+                daily likes
               </span>
-              35
-              <span className="font-sans text-sm font-normal tracking-normal text-muted-foreground">
+              {/* 35 */}
+              {/* <span className="font-sans text-sm font-normal tracking-normal text-muted-foreground">
                 min
-              </span>
+              </span> */}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">

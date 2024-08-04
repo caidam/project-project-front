@@ -25,6 +25,9 @@ function ProgressCard({ data }) {
   const totalVideoViews = data[data.length - 1]?.['video_view_count'] || 0;
   const formattedTotalVideoViews = new Intl.NumberFormat('en-US').format(totalVideoViews);
 
+  const videoTitle = data[data.length - 1]?.['youtube_video_title'] || '';
+  const channelTitle = data[data.length - 1]?.['youtube_channel_title'] || '';
+
   // For spaces instead of commas
   const formattedTotalVideoViewsWithSpaces = totalVideoViews.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   const formattedTotalChannelViewsWithSpaces = totalChannelViews.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -35,9 +38,9 @@ function ProgressCard({ data }) {
           className="max-w-xs" x-chunk="charts-01-chunk-2"
         >
           <CardHeader>
-            <CardTitle>Progress</CardTitle>
+            <CardTitle>Total Views</CardTitle>
             <CardDescription>
-              You average more steps a day this year than last year.
+              Total views of the {channelTitle} channel and {videoTitle} video
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">

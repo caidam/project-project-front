@@ -22,6 +22,8 @@ function MiniBarChart({ data, datapoint, title}) {
   const limit = 7; // Adjust this value to change the number of displayed records
   const fieldName = datapoint; // Field name variable
 
+  const capitalizedTitle = title.charAt(0).toUpperCase() + title.slice(1);
+
   // Calculate overall average daily views
   const validValues = data.filter(record => record[fieldName] !== null).map(record => record[fieldName]);
   const overallAvg = validValues.reduce((acc, views) => acc + views, 0) / validValues.length;
@@ -33,6 +35,13 @@ function MiniBarChart({ data, datapoint, title}) {
   const limitedAvgValue = Math.round(
     limitedData.reduce((acc, record) => acc + (record[fieldName] || 0), 0) / limitedData.length
   );
+
+  const formattedLimitedAvgValue = limitedAvgValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+  // Total count
+  const totalFieldName = `video_${title.slice(0, -1)}_count`;
+  const totalCount = data[data.length - 1]?.[totalFieldName] || '';
+  const formattedTotalCount = totalCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 
   // Transform the data to the format needed by the BarChart
   const chartData = limitedData.map(item => ({
@@ -46,17 +55,16 @@ function MiniBarChart({ data, datapoint, title}) {
           className="max-w-xs" x-chunk="charts-01-chunk-3"
         >
           <CardHeader className="p-4 pb-0">
-            <CardTitle>{title} overview</CardTitle>
+            <CardTitle>{capitalizedTitle} Overview</CardTitle>
             <CardDescription>
-              Over the last 7 days, your distance walked and run was 12.5 miles
-              per day.
+              Over the last 7 days, this video had an average of {formattedLimitedAvgValue} {title} per day for a grand total of {formattedTotalCount} {title}
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-row items-baseline gap-4 p-4 pt-0">
             <div className="flex items-baseline gap-1 text-3xl font-bold tabular-nums leading-none">
-              12.5
+            {formattedLimitedAvgValue}
               <span className="text-sm font-normal text-muted-foreground">
-                miles/day
+                {title}/day on average
               </span>
             </div>
             <ChartContainer

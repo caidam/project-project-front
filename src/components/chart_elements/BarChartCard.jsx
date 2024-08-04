@@ -49,13 +49,32 @@ function BarChartCard({ data }) {
   // Access the field value for the last record in the dataset
   const lastRecordValue = data[data.length - 1]?.[fieldName] || 0;
 
+  const WeeklyVideoViews = data[data.length - 1]?.['weekly_views'] || 0;
+  const formattedWeeklyVideoViews = WeeklyVideoViews.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+  
+  const DailyVideoViewsWVariation = data[data.length - 1]?.['daily_views_dod_w_variation'] || 0;
+  const formattedDailyVideoViewsWVariation = DailyVideoViewsWVariation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+  const LastRefDay = data[data.length - 1]?.['ref_day'] || '';
+
+  const firstDayOfTracking = new Date(data[0].ref_day);
+  const today = new Date();
+  const daysOfTracking = Math.floor((today - firstDayOfTracking) / (1000 * 60 * 60 * 24));
+
   return (
     <div>
         <Card
           className="lg:max-w-md" x-chunk="charts-01-chunk-0"
         >
           <CardHeader className="space-y-0 pb-2">
-            <CardDescription>Today</CardDescription>
+            {/* <CardDescription>Today</CardDescription> */}
+            <CardDescription className='mb-2 text-xs'>
+              
+            <span className="font-medium text-foreground">{daysOfTracking}</span> 
+            {" "} days of tracking as of {" "} 
+            <span className="font-medium text-foreground">{LastRefDay}</span> 
+            </CardDescription>
             <CardTitle className="text-4xl tabular-nums">
               {lastRecordValue}{" "}
               <span className="font-sans text-sm font-normal tracking-normal text-muted-foreground">
@@ -152,8 +171,8 @@ function BarChartCard({ data }) {
                 >
                   <Label
                     position="insideBottomLeft"
-                    value="Average Daily Views"
-                    offset={10}
+                    value="Daily views average over 7 days"
+                    offset={5}
                     fill="hsl(var(--foreground))"
                   />
                   <Label
@@ -170,13 +189,13 @@ function BarChartCard({ data }) {
           </CardContent>
           <CardFooter className="flex-col items-start gap-1">
             <CardDescription>
-              Over the past 7 days, you have walked{" "}
-              <span className="font-medium text-foreground">53,305</span> steps.
+              Over the past 7 days, the video has totaled{" "}
+              <span className="font-medium text-foreground">{formattedWeeklyVideoViews}</span> views
             </CardDescription>
             <CardDescription>
-              You need{" "}
-              <span className="font-medium text-foreground">12,584</span> more
-              steps to reach your goal.
+              There is a {" "}
+              <span className="font-medium text-foreground">{formattedDailyVideoViewsWVariation}</span>% variation
+              compared to the number of daily views the same day last week
             </CardDescription>
           </CardFooter>
         </Card>

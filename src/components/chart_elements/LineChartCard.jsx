@@ -41,11 +41,17 @@ function LineChartCard({ data }) {
   // Transform the data to the format needed by the BarChart
   const chartData = limitedData.map(item => ({
     date: item.ref_day,
-    resting: item[fieldName] || limitedAvgValue, // Ensure a value is present for the chart
+    daily_views: item[fieldName] || limitedAvgValue, // Ensure a value is present for the chart
   }));
 
   // Access the field value for the last record in the dataset
   const lastRecordValue = data[data.length - 1]?.[fieldName] || 0;
+
+  const DailyVideoViewsWVariation = data[data.length - 1]?.['daily_views_dod_w_variation'] || 0;
+  const formattedDailyVideoViewsWVariation = DailyVideoViewsWVariation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+  const DailyVideoViewsVariation = data[data.length - 1]?.['daily_views_dod_variation'] || 0;
+  const formattedDailyVideoViewsVariation = DailyVideoViewsVariation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 
   return (
     <div>
@@ -54,20 +60,20 @@ function LineChartCard({ data }) {
             >
             <CardHeader className="flex flex-row items-center gap-4 space-y-0 pb-2 [&>div]:flex-1">
             <div>
-            <CardDescription>Resting HR</CardDescription>
+            <CardDescription>Daily Variation</CardDescription>
             <CardTitle className="flex items-baseline gap-1 text-4xl tabular-nums">
-                62
-                <span className="text-sm font-normal tracking-normal text-muted-foreground">
-                bpm
+                {formattedDailyVideoViewsVariation}
+                <span className="text-xs font-normal tracking-normal text-muted-foreground">
+                %
                 </span>
             </CardTitle>
             </div>
             <div>
-              <CardDescription>Variability</CardDescription>
+              <CardDescription>Weekly Variation</CardDescription>
               <CardTitle className="flex items-baseline gap-1 text-4xl tabular-nums">
-                35
+                {formattedDailyVideoViewsWVariation}
                 <span className="text-sm font-normal tracking-normal text-muted-foreground">
-                  ms
+                  %
                 </span>
               </CardTitle>
             </div>
@@ -76,7 +82,7 @@ function LineChartCard({ data }) {
             <ChartContainer
               config={{
                 resting: {
-                  label: "Resting",
+                  label: "Daily views",
                   color: "hsl(var(--chart-1))",
                 },
               }}
@@ -140,7 +146,7 @@ function LineChartCard({ data }) {
                   }}
                 />
                 <Line
-                  dataKey="resting"
+                  dataKey="daily_views"
                   type="natural"
                   fill="var(--color-resting)"
                   stroke="var(--color-resting)"

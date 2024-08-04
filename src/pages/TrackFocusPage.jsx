@@ -1,78 +1,175 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import { Charts } from '@/components/FocusStatsComponent';
 import { useModeledData } from '@/hooks/useModeledData';
-// import ChartWrapper from '@/components/chart_elements/ChartWrapper';
 import { ChartWrapper, ChartGridLeft, ChartGridMiddle, ChartGridRight } from '@/components/chart_elements/ChartGrid';
 import BarChartCard from '@/components/chart_elements/BarChartCard';
 import LineChartCard from '@/components/chart_elements/LineChartCard';
 import ProgressCard from '@/components/chart_elements/ProgressCard';
 import MiniBarChart from '@/components/chart_elements/MiniBarChart';
-import KpiBarCard from '@/components/chart_elements/KpiBarCard';
 import MultiDonutCard from '@/components/chart_elements/MultiDonutCard';
 import AreaChartCard from '@/components/chart_elements/AreaChartCard';
 import TitleCard from '@/components/chart_elements/TitleCard';
+import { toast } from 'sonner';
+import { Skeleton } from "@/components/ui/skeleton"
+import { Link } from 'react-router-dom';
 
 const TrackFocusPage = () => {
   const { source_id } = useParams();
-  // const [summaryData, setSummaryData, setSummaryDataUpdateNeeded] = useModeledData('/api/usersource_summary', source_id);
   const [statsData, setStatsData, setStatsDataUpdateNeeded] = useModeledData('/api/source_stats', source_id); 
+  const [loading, setLoading] = useState(true);
+  const [extendedLoading, setExtendedLoading] = useState(false);
 
   useEffect(() => {
-    console.log('useModeledData in TrackFocusPage:', useModeledData);
-  }, [useModeledData]);
+    const initialDelay = setTimeout(() => {
+      if (!statsData) {
+        setExtendedLoading(true);
+        // toast.info('Waiting for data...');
+      } else {
+        setLoading(false);
+      }
+    }, 5000); // 4 seconds delay
+
+    return () => clearTimeout(initialDelay);
+  }, [statsData]);
+
+  useEffect(() => {
+    if (extendedLoading) {
+      const extendedDelay = setTimeout(() => {
+        if (!statsData) {
+          toast.error('No data available yet... try again in a few days.');
+        }
+        setLoading(false);
+      }, 4000); // Additional 4 seconds delay
+
+      return () => clearTimeout(extendedDelay);
+    }
+  }, [extendedLoading, statsData]);
+
+  useEffect(() => {
+    if (!loading) {
+      if (statsData && statsData.length > 0) {
+        const firstDayOfTracking = new Date(statsData[0].ref_day);
+        const today = new Date();
+        const daysOfTracking = Math.floor((today - firstDayOfTracking) / (1000 * 60 * 60 * 24));
+
+        if (daysOfTracking < 1) {
+          toast.info('Data is not yet available. Please check back tomorrow.');
+        } else if (daysOfTracking < 7) {
+          toast.info(`Tracking data is still being collected for this video. Fully exhaustive data will be available in ${7 - daysOfTracking} days.`);
+        }
+      } else {
+        toast.info("Data seem unavailable for the moment, come back in a few days!");
+      }
+    }
+  }, [loading, statsData]);
 
   return (
     <div>
       <Navbar>
-        {/* <Charts /> */}
         <ChartWrapper>
-        <ChartGridLeft>
-        <div>
-        {/* {source_id && <p>source_id = {source_id}</p>} */}
-        {/* {statsData && statsData[0] && statsData[0].youtube_channel_medium_thumbnail_url && (
-          <img src={statsData[0].youtube_channel_medium_thumbnail_url} alt="Channel Thumbnail" />
-        )} */}
-
-        {/* {statsData && statsData[0] && statsData[0].youtube_video_thumbnail_url && (
-          <img src={statsData[0].youtube_video_thumbnail_url} alt="Video Thumbnail" />
-        )} */}
-
-        {/* {summaryData && summaryData.length > 0 && (
-          <p>{JSON.stringify(summaryData, null, 2)}</p>
-        )} */}
-        {/* {statsData && statsData.length > 0 && (
-          <p>{JSON.stringify(statsData, null, 2)}</p>
-        )} */}
-        </div>
-            <TitleCard data={statsData} />
-            <BarChartCard data={statsData} />
-            {/* <LineChartCard/> */}
-
-          </ChartGridLeft>
-
-          <ChartGridMiddle>
-
-            {/* <ProgressCard/> */}
-            <LineChartCard data={statsData} />
-            {/* <AreaChartCard/> */}
-            <AreaChartCard data={statsData} />
-            <MiniBarChart data={statsData} datapoint='daily_likes' title='likes' />
-          
-          </ChartGridMiddle>
-          
-          <ChartGridRight>
-          
-            <MiniBarChart data={statsData} datapoint='daily_comments' title='comments' />
-            <MultiDonutCard data={statsData} />
-            {/* <KpiBarCard/>   */}
-            <ProgressCard data={statsData} />
-        
-          </ChartGridRight>
-        
+          {loading ? (
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 p-6">
+            <div>
+              <div className="flex flex-col space-y-3 mb-16">
+                <Skeleton className="h-[150px] w-full sm:w-[300px] rounded-lg" />
+                <div className="space-y-2">
+                  <Skeleton className="h-5 w-full sm:w-[220px]" />
+                  <Skeleton className="h-5 w-full sm:w-[180px]" />
+                </div>
+              </div>
+              <div className="flex flex-col space-y-3 mb-16">
+                <Skeleton className="h-[150px] w-full sm:w-[300px] rounded-lg" />
+                <div className="space-y-2">
+                  <Skeleton className="h-5 w-full sm:w-[220px]" />
+                  <Skeleton className="h-5 w-full sm:w-[180px]" />
+                </div>
+              </div>
+            </div>
+      
+            <div>
+              <div className="flex flex-col space-y-3 mb-16">
+                <Skeleton className="h-[125px] w-full sm:w-[250px] rounded-xl" />
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-full sm:w-[250px]" />
+                  <Skeleton className="h-4 w-full sm:w-[200px]" />
+                </div>
+              </div>
+              <div className="flex flex-col space-y-3 mb-16">
+                <Skeleton className="h-[125px] w-full sm:w-[250px] rounded-xl" />
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-full sm:w-[250px]" />
+                  <Skeleton className="h-4 w-full sm:w-[200px]" />
+                </div>
+              </div>
+              <div className="flex flex-col space-y-3 mb-16">
+                <Skeleton className="h-[100px] w-full sm:w-[200px] rounded-md" />
+                <div className="space-y-2">
+                  <Skeleton className="h-3 w-full sm:w-[240px]" />
+                  <Skeleton className="h-3 w-full sm:w-[190px]" />
+                </div>
+              </div>
+            </div>
+      
+            <div>
+              <div className="flex flex-col space-y-3 mb-16">
+                <Skeleton className="h-[100px] w-full sm:w-[200px] rounded-md" />
+                <div className="space-y-2">
+                  <Skeleton className="h-3 w-full sm:w-[240px]" />
+                  <Skeleton className="h-3 w-full sm:w-[190px]" />
+                </div>
+              </div>
+              <div className="flex flex-col space-y-3 mb-16">
+                <Skeleton className="h-[125px] w-full sm:w-[250px] rounded-xl" />
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-full sm:w-[250px]" />
+                  <Skeleton className="h-4 w-full sm:w-[200px]" />
+                </div>
+              </div>
+              <div className="flex flex-col space-y-3 mb-16">
+                <Skeleton className="h-[150px] w-full sm:w-[300px] rounded-lg" />
+                <div className="space-y-2">
+                  <Skeleton className="h-5 w-full sm:w-[220px]" />
+                  <Skeleton className="h-5 w-full sm:w-[180px]" />
+                </div>
+              </div>
+            </div>
+          </div>
+          ) : (
+            statsData && statsData.length > 0 ? (
+              <>
+                <ChartGridLeft>
+                  <TitleCard data={statsData} />
+                  <BarChartCard data={statsData} />
+                </ChartGridLeft>
+                <ChartGridMiddle>
+                  <LineChartCard data={statsData} />
+                  <AreaChartCard data={statsData} />
+                  <MiniBarChart data={statsData} datapoint='daily_likes' title='likes' />
+                </ChartGridMiddle>
+                <ChartGridRight>
+                  <MiniBarChart data={statsData} datapoint='daily_comments' title='comments' />
+                  <MultiDonutCard data={statsData} />
+                  <ProgressCard data={statsData} />
+                </ChartGridRight>
+              </>
+            ) : (
+              <div style={{ marginTop: '20px' }} className='text-lg'>
+                <Link to='/discovery'>
+                <img 
+                  src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDJteWo2enphenE1N2Q5eWEzNXphOTVkZzZmdHN2NzB0djc1M21kbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IXT16ltI7K2nC/giphy.gif" 
+                  alt="No Data Available"
+                  className='mx-auto flex items-center justify-center mt-10 mb-10' 
+                />
+                </Link>
+                <p>No data available yet for this video... our best music loving robot has been assigned to the task, come back in a few days!</p>
+                <p>For new videos, partial data is usually available the next day and is fully exhaustive after around a week of collecting.</p>
+                <p className='mt-2'>In the meantime check the <Link to='/discovery' className='text-primary'>Discovery</Link> page to watch and listen random music videos added by other users of the website.</p>
+              </div>
+            )
+          )}
         </ChartWrapper>
-
       </Navbar>
     </div>
   );
