@@ -22,7 +22,33 @@ import {
     ChartTooltipContent,
   } from "@/components/ui/chart"
 
-function BarChartCard() {
+function BarChartCard({ data }) {
+  
+  ///////////////////////////////
+  const limit = 7; // Adjust this value to change the number of displayed records
+  const fieldName = 'daily_views'; // Field name variable
+
+  // Calculate overall average daily views
+  const validValues = data.filter(record => record[fieldName] !== null).map(record => record[fieldName]);
+  const overallAvg = validValues.reduce((acc, views) => acc + views, 0) / validValues.length;
+
+  // Limit the data to the last specified number of records
+  const limitedData = data.slice(-limit);
+
+  // Calculate average daily views over the limited period and round to an integer
+  const limitedAvgValue = Math.round(
+    limitedData.reduce((acc, record) => acc + (record[fieldName] || 0), 0) / limitedData.length
+  );
+
+  // Transform the data to the format needed by the BarChart
+  const chartData = limitedData.map(item => ({
+    date: item.ref_day,
+    steps: item[fieldName] || limitedAvgValue, // Ensure a value is present for the chart
+  }));
+
+  // Access the field value for the last record in the dataset
+  const lastRecordValue = data[data.length - 1]?.[fieldName] || 0;
+
   return (
     <div>
         <Card
@@ -31,9 +57,9 @@ function BarChartCard() {
           <CardHeader className="space-y-0 pb-2">
             <CardDescription>Today</CardDescription>
             <CardTitle className="text-4xl tabular-nums">
-              12,584{" "}
+              {lastRecordValue}{" "}
               <span className="font-sans text-sm font-normal tracking-normal text-muted-foreground">
-                steps
+                daily views
               </span>
             </CardTitle>
           </CardHeader>
@@ -52,36 +78,37 @@ function BarChartCard() {
                   left: -4,
                   right: -4,
                 }}
-                data={[
-                  {
-                    date: "2024-01-01",
-                    steps: 2000,
-                  },
-                  {
-                    date: "2024-01-02",
-                    steps: 2100,
-                  },
-                  {
-                    date: "2024-01-03",
-                    steps: 2200,
-                  },
-                  {
-                    date: "2024-01-04",
-                    steps: 1300,
-                  },
-                  {
-                    date: "2024-01-05",
-                    steps: 1400,
-                  },
-                  {
-                    date: "2024-01-06",
-                    steps: 2500,
-                  },
-                  {
-                    date: "2024-01-07",
-                    steps: 1600,
-                  },
-                ]}
+                data={chartData}
+                // data={[
+                //   {
+                //     date: "2024-01-01",
+                //     steps: 2000,
+                //   },
+                //   {
+                //     date: "2024-01-02",
+                //     steps: 2100,
+                //   },
+                //   {
+                //     date: "2024-01-03",
+                //     steps: 2200,
+                //   },
+                //   {
+                //     date: "2024-01-04",
+                //     steps: 1300,
+                //   },
+                //   {
+                //     date: "2024-01-05",
+                //     steps: 1400,
+                //   },
+                //   {
+                //     date: "2024-01-06",
+                //     steps: 2500,
+                //   },
+                //   {
+                //     date: "2024-01-07",
+                //     steps: 1600,
+                //   },
+                // ]}
               >
                 <Bar
                   dataKey="steps"
@@ -118,20 +145,20 @@ function BarChartCard() {
                   cursor={false}
                 />
                 <ReferenceLine
-                  y={1200}
+                  y={limitedAvgValue}
                   stroke="hsl(var(--muted-foreground))"
                   strokeDasharray="3 3"
                   strokeWidth={1}
                 >
                   <Label
                     position="insideBottomLeft"
-                    value="Average Steps"
+                    value="Average Daily Views"
                     offset={10}
                     fill="hsl(var(--foreground))"
                   />
                   <Label
                     position="insideTopLeft"
-                    value="12,343"
+                    value={limitedAvgValue}
                     className="text-lg"
                     fill="hsl(var(--foreground))"
                     offset={10}

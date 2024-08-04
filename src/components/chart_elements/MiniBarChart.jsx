@@ -16,14 +16,37 @@ import {
 ChartContainer,
 } from "@/components/ui/chart"
 
-function MiniBarChart() {
+function MiniBarChart({ data, datapoint, title}) {
+
+  ///////////////////////////////
+  const limit = 7; // Adjust this value to change the number of displayed records
+  const fieldName = datapoint; // Field name variable
+
+  // Calculate overall average daily views
+  const validValues = data.filter(record => record[fieldName] !== null).map(record => record[fieldName]);
+  const overallAvg = validValues.reduce((acc, views) => acc + views, 0) / validValues.length;
+
+  // Limit the data to the last specified number of records
+  const limitedData = data.slice(-limit);
+
+  // Calculate average daily views over the limited period and round to an integer
+  const limitedAvgValue = Math.round(
+    limitedData.reduce((acc, record) => acc + (record[fieldName] || 0), 0) / limitedData.length
+  );
+
+  // Transform the data to the format needed by the BarChart
+  const chartData = limitedData.map(item => ({
+    date: item.ref_day,
+    steps: item[fieldName] || limitedAvgValue, // Ensure a value is present for the chart
+  }));
+
   return (
     <div>
         <Card
           className="max-w-xs" x-chunk="charts-01-chunk-3"
         >
           <CardHeader className="p-4 pb-0">
-            <CardTitle>Walking Distance</CardTitle>
+            <CardTitle>{title} overview</CardTitle>
             <CardDescription>
               Over the last 7 days, your distance walked and run was 12.5 miles
               per day.
@@ -53,36 +76,37 @@ function MiniBarChart() {
                   top: 0,
                   bottom: 0,
                 }}
-                data={[
-                  {
-                    date: "2024-01-01",
-                    steps: 2000,
-                  },
-                  {
-                    date: "2024-01-02",
-                    steps: 2100,
-                  },
-                  {
-                    date: "2024-01-03",
-                    steps: 2200,
-                  },
-                  {
-                    date: "2024-01-04",
-                    steps: 1300,
-                  },
-                  {
-                    date: "2024-01-05",
-                    steps: 1400,
-                  },
-                  {
-                    date: "2024-01-06",
-                    steps: 2500,
-                  },
-                  {
-                    date: "2024-01-07",
-                    steps: 1600,
-                  },
-                ]}
+                data = {chartData}
+                // data={[
+                //   {
+                //     date: "2024-01-01",
+                //     steps: 2000,
+                //   },
+                //   {
+                //     date: "2024-01-02",
+                //     steps: 2100,
+                //   },
+                //   {
+                //     date: "2024-01-03",
+                //     steps: 2200,
+                //   },
+                //   {
+                //     date: "2024-01-04",
+                //     steps: 1300,
+                //   },
+                //   {
+                //     date: "2024-01-05",
+                //     steps: 1400,
+                //   },
+                //   {
+                //     date: "2024-01-06",
+                //     steps: 2500,
+                //   },
+                //   {
+                //     date: "2024-01-07",
+                //     steps: 1600,
+                //   },
+                // ]}
               >
                 <Bar
                   dataKey="steps"

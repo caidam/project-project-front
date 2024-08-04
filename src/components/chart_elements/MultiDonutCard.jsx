@@ -13,7 +13,18 @@ import {
 ChartContainer,
 } from "@/components/ui/chart"
 
-function MultiDonutCard() {
+function MultiDonutCard({ data }) {
+
+  // Calculate overall average daily views
+  const validValues = data.filter(record => record['daily_views'] !== null).map(record => record['daily_views']);
+  const overallAvg = Math.floor(validValues.reduce((acc, views) => acc + views, 0) / validValues.length);
+  //
+  const DailyViews = data[data.length - 1]?.['daily_views'] || 0;
+  const formattedDailyViews = new Intl.NumberFormat('en-US').format(DailyViews);
+  const formattedDailyViewsWithSpaces = DailyViews.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+  const WeeklyViews = data[data.length - 1]?.['weekly_views'] || 0;
+
   return (
     <div>
         <Card
@@ -22,29 +33,29 @@ function MultiDonutCard() {
           <CardContent className="flex gap-4 p-4">
             <div className="grid items-center gap-2">
               <div className="grid flex-1 auto-rows-min gap-0.5">
-                <div className="text-sm text-muted-foreground">Move</div>
+                <div className="text-sm text-muted-foreground">Daily / Average</div>
                 <div className="flex items-baseline gap-1 text-xl font-bold tabular-nums leading-none">
-                  562/600
+                  {DailyViews}/{overallAvg}
                   <span className="text-sm font-normal text-muted-foreground">
-                    kcal
+                    views
                   </span>
                 </div>
               </div>
               <div className="grid flex-1 auto-rows-min gap-0.5">
-                <div className="text-sm text-muted-foreground">Exercise</div>
+                <div className="text-sm text-muted-foreground">Daily / Average</div>
                 <div className="flex items-baseline gap-1 text-xl font-bold tabular-nums leading-none">
                   73/120
                   <span className="text-sm font-normal text-muted-foreground">
-                    min
+                    likes
                   </span>
                 </div>
               </div>
               <div className="grid flex-1 auto-rows-min gap-0.5">
-                <div className="text-sm text-muted-foreground">Stand</div>
+                <div className="text-sm text-muted-foreground">Daily / Average</div>
                 <div className="flex items-baseline gap-1 text-xl font-bold tabular-nums leading-none">
                   8/12
                   <span className="text-sm font-normal text-muted-foreground">
-                    hr
+                    comments
                   </span>
                 </div>
               </div>
@@ -76,17 +87,17 @@ function MultiDonutCard() {
                 data={[
                   {
                     activity: "stand",
-                    value: (8 / 12) * 100,
+                    value: (DailyViews / overallAvg) * 100,
                     fill: "var(--color-stand)",
                   },
                   {
                     activity: "exercise",
-                    value: (46 / 60) * 100,
+                    value: (65 / 60) * 100,
                     fill: "var(--color-exercise)",
                   },
                   {
-                    activity: "move",
-                    value: (245 / 360) * 100,
+                    activity: "views",
+                    value: ((WeeklyViews - DailyViews) / WeeklyViews) * 100,
                     fill: "var(--color-move)",
                   },
                 ]}

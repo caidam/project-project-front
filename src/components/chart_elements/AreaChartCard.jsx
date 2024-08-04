@@ -19,14 +19,38 @@ ChartTooltip,
 ChartTooltipContent,
 } from "@/components/ui/chart"
 
-function AreaChartCard() {
+function AreaChartCard({ data }) {
+
+
+  ///////////////////////////////
+  const limit = 7; // Adjust this value to change the number of displayed records
+  const fieldName = 'daily_likes'; // Field name variable
+
+  // Calculate overall average daily views
+  const validValues = data.filter(record => record[fieldName] !== null).map(record => record[fieldName]);
+  const overallAvg = validValues.reduce((acc, views) => acc + views, 0) / validValues.length;
+
+  // Limit the data to the last specified number of records
+  const limitedData = data.slice(-limit);
+
+  // Calculate average daily views over the limited period and round to an integer
+  const limitedAvgValue = Math.round(
+    limitedData.reduce((acc, record) => acc + (record[fieldName] || 0), 0) / limitedData.length
+  );
+
+  // Transform the data to the format needed by the BarChart
+  const chartData = limitedData.map(item => ({
+    date: item.ref_day,
+    time: item[fieldName] || limitedAvgValue, // Ensure a value is present for the chart
+  }));
+
   return (
     <div>
         <Card
           className="max-w-xs" x-chunk="charts-01-chunk-7"
         >
           <CardHeader className="space-y-0 pb-0">
-            <CardDescription>Time in Bed</CardDescription>
+            <CardDescription>Likes Evolution</CardDescription>
             <CardTitle className="flex items-baseline gap-1 text-4xl tabular-nums">
               8
               <span className="font-sans text-sm font-normal tracking-normal text-muted-foreground">
@@ -49,36 +73,37 @@ function AreaChartCard() {
             >
               <AreaChart
                 accessibilityLayer
-                data={[
-                  {
-                    date: "2024-01-01",
-                    time: 8.5,
-                  },
-                  {
-                    date: "2024-01-02",
-                    time: 7.2,
-                  },
-                  {
-                    date: "2024-01-03",
-                    time: 8.1,
-                  },
-                  {
-                    date: "2024-01-04",
-                    time: 6.2,
-                  },
-                  {
-                    date: "2024-01-05",
-                    time: 5.2,
-                  },
-                  {
-                    date: "2024-01-06",
-                    time: 8.1,
-                  },
-                  {
-                    date: "2024-01-07",
-                    time: 7.0,
-                  },
-                ]}
+                data = {chartData}
+                // data={[
+                //   {
+                //     date: "2024-01-01",
+                //     time: 8.5,
+                //   },
+                //   {
+                //     date: "2024-01-02",
+                //     time: 7.2,
+                //   },
+                //   {
+                //     date: "2024-01-03",
+                //     time: 8.1,
+                //   },
+                //   {
+                //     date: "2024-01-04",
+                //     time: 6.2,
+                //   },
+                //   {
+                //     date: "2024-01-05",
+                //     time: 5.2,
+                //   },
+                //   {
+                //     date: "2024-01-06",
+                //     time: 8.1,
+                //   },
+                //   {
+                //     date: "2024-01-07",
+                //     time: 7.0,
+                //   },
+                // ]}
                 margin={{
                   left: 0,
                   right: 0,
@@ -114,11 +139,11 @@ function AreaChartCard() {
                   content={<ChartTooltipContent hideLabel />}
                   formatter={(value) => (
                     <div className="flex min-w-[120px] items-center text-xs text-muted-foreground">
-                      Time in bed
+                      Daily likes :
                       <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums text-foreground">
                         {value}
                         <span className="font-normal text-muted-foreground">
-                          hr
+                          {/* likes */}
                         </span>
                       </div>
                     </div>
