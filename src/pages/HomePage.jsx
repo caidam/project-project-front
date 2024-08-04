@@ -3,7 +3,7 @@ import HeaderComponent from '../components/HeaderComponent'
 import { DataTableDemo } from '@/components/DataTableComponent'
 import Navbar from '@/components/Navbar'
 import { DataTableDemo2 } from '@/components/DataTableComponent3'
-import { Dashboard2 } from '@/components/test'
+import { Dashboard2 } from '@/components/dummydashboard'
 import { DrawerComponent } from '@/components/DrawerComponent'
 import Addsource from '@/components/AddsourceComponent'
 import { useTrackedSources, useUserSources } from '../hooks/useTrackedSources';

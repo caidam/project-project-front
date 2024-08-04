@@ -7,7 +7,7 @@ import {
   InputOTPSlot,
 } from "./ui/input-otp";
 
-export function InputOTPWithSeparator({ setOtp, isOtpValid }) {
+export function InputOTPWithSeparator({ id, setOtp, isOtpValid }) {
   const [otp, setOtpValue] = useState("");
 
   const handleOtpChange = (newOtp) => {
@@ -24,7 +24,8 @@ export function InputOTPWithSeparator({ setOtp, isOtpValid }) {
 
   return (
     <div>
-      <InputOTP 
+      <InputOTP
+          id={id}
           maxLength={6} 
           value={otp} 
           onChange={handleOtpChange} 

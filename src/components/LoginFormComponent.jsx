@@ -173,8 +173,8 @@ export function SignUpFormOtp({ signupUser, isOtpValid, validateOtp }) {
       <CardContent>
         {!isOtpValid && (
           <div className="grid gap-2 mb-4">
-            <Label htmlFor="access_code">Access Code</Label>
-            <InputOTPWithSeparator setOtp={validateOtp} isOtpValid={isOtpValid} />
+            <Label htmlFor="access_code" >Access Code</Label>
+            <InputOTPWithSeparator id="access_code" setOtp={validateOtp} isOtpValid={isOtpValid} />
           </div>
         )}
         {isOtpValid && (
