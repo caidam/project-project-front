@@ -14,6 +14,7 @@ import TitleCard from '@/components/chart_elements/TitleCard';
 import { toast } from 'sonner';
 import { Skeleton } from "@/components/ui/skeleton"
 import { Link } from 'react-router-dom';
+import '@/styles/ripple.css'
 
 const TrackFocusPage = () => {
   const { source_id } = useParams();
@@ -70,72 +71,75 @@ const TrackFocusPage = () => {
       <Navbar>
         <ChartWrapper>
           {loading ? (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 p-6">
-            <div>
-              <div className="flex flex-col space-y-3 mb-16">
-                <Skeleton className="h-[150px] w-full sm:w-[300px] rounded-lg" />
+
+<div className="flex flex-col items-center justify-center p-6 mx-auto mt-10">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+        
+        <div>
+            <div className="flex flex-col space-y-3 mb-16 mx-auto">
+                <Skeleton className="h-[150px] w-[150px] sm:w-[300px] rounded-lg" />
                 <div className="space-y-2">
-                  <Skeleton className="h-5 w-full sm:w-[220px]" />
-                  <Skeleton className="h-5 w-full sm:w-[180px]" />
+                    <Skeleton className="h-5 w-[150px] sm:w-[220px]" />
+                    <Skeleton className="h-5 w-[100px] sm:w-[180px]" />
                 </div>
-              </div>
-              <div className="flex flex-col space-y-3 mb-16">
-                <Skeleton className="h-[150px] w-full sm:w-[300px] rounded-lg" />
-                <div className="space-y-2">
-                  <Skeleton className="h-5 w-full sm:w-[220px]" />
-                  <Skeleton className="h-5 w-full sm:w-[180px]" />
-                </div>
-              </div>
             </div>
-      
-            <div>
-              <div className="flex flex-col space-y-3 mb-16">
-                <Skeleton className="h-[125px] w-full sm:w-[250px] rounded-xl" />
+        </div>
+
+        <div>
+            <div className="flex flex-col space-y-3 mb-16 mx-auto">
+                <Skeleton className="h-[150px] w-[150px] sm:w-[300px] rounded-lg" />
                 <div className="space-y-2">
-                  <Skeleton className="h-4 w-full sm:w-[250px]" />
-                  <Skeleton className="h-4 w-full sm:w-[200px]" />
+                    <Skeleton className="h-5 w-[150px] sm:w-[220px]" />
+                    <Skeleton className="h-5 w-[100px] sm:w-[180px]" />
                 </div>
-              </div>
-              <div className="flex flex-col space-y-3 mb-16">
-                <Skeleton className="h-[125px] w-full sm:w-[250px] rounded-xl" />
-                <div className="space-y-2">
-                  <Skeleton className="h-4 w-full sm:w-[250px]" />
-                  <Skeleton className="h-4 w-full sm:w-[200px]" />
-                </div>
-              </div>
-              <div className="flex flex-col space-y-3 mb-16">
-                <Skeleton className="h-[100px] w-full sm:w-[200px] rounded-md" />
-                <div className="space-y-2">
-                  <Skeleton className="h-3 w-full sm:w-[240px]" />
-                  <Skeleton className="h-3 w-full sm:w-[190px]" />
-                </div>
-              </div>
             </div>
-      
-            <div>
-              <div className="flex flex-col space-y-3 mb-16">
-                <Skeleton className="h-[100px] w-full sm:w-[200px] rounded-md" />
+        </div>
+        
+        <div>
+            <div className="flex flex-col space-y-3 mb-16 mx-auto">
+                <Skeleton className="h-[150px] w-[150px] sm:w-[300px] rounded-lg" />
                 <div className="space-y-2">
-                  <Skeleton className="h-3 w-full sm:w-[240px]" />
-                  <Skeleton className="h-3 w-full sm:w-[190px]" />
+                    <Skeleton className="h-5 w-[150px] sm:w-[220px]" />
+                    <Skeleton className="h-5 w-[100px] sm:w-[180px]" />
                 </div>
-              </div>
-              <div className="flex flex-col space-y-3 mb-16">
-                <Skeleton className="h-[125px] w-full sm:w-[250px] rounded-xl" />
-                <div className="space-y-2">
-                  <Skeleton className="h-4 w-full sm:w-[250px]" />
-                  <Skeleton className="h-4 w-full sm:w-[200px]" />
-                </div>
-              </div>
-              <div className="flex flex-col space-y-3 mb-16">
-                <Skeleton className="h-[150px] w-full sm:w-[300px] rounded-lg" />
-                <div className="space-y-2">
-                  <Skeleton className="h-5 w-full sm:w-[220px]" />
-                  <Skeleton className="h-5 w-full sm:w-[180px]" />
-                </div>
-              </div>
             </div>
-          </div>
+        </div>
+        
+        <div>
+            <div className="flex flex-col space-y-3 mb-16 mx-auto">
+                <Skeleton className="h-[150px] w-[150px] sm:w-[300px] rounded-lg" />
+                <div className="space-y-2">
+                    <Skeleton className="h-5 w-[150px] sm:w-[220px]" />
+                    <Skeleton className="h-5 w-[100px] sm:w-[180px]" />
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <div className="flex flex-col space-y-3 mb-16 mx-auto">
+                <Skeleton className="h-[150px] w-[150px] sm:w-[300px] rounded-lg" />
+                <div className="space-y-2">
+                    <Skeleton className="h-5 w-[150px] sm:w-[220px]" />
+                    <Skeleton className="h-5 w-[100px] sm:w-[180px]" />
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <div className="flex flex-col space-y-3 mb-16 mx-auto">
+                <Skeleton className="h-[150px] w-[150px] sm:w-[300px] rounded-lg" />
+                <div className="space-y-2">
+                    <Skeleton className="h-5 w-[150px] sm:w-[220px]" />
+                    <Skeleton className="h-5 w-[100px] sm:w-[180px]" />
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
           ) : (
             statsData && statsData.length > 0 ? (
               <>
@@ -155,7 +159,7 @@ const TrackFocusPage = () => {
                 </ChartGridRight>
               </>
             ) : (
-              <div style={{ marginTop: '20px' }} className='text-lg'>
+              <div style={{ marginTop: '20px' }} className='text-lg text-muted-foreground'>
                 <Link to='/discovery'>
                 <img 
                   src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDJteWo2enphenE1N2Q5eWEzNXphOTVkZzZmdHN2NzB0djc1M21kbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IXT16ltI7K2nC/giphy.gif" 

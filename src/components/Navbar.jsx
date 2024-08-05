@@ -135,7 +135,12 @@ const Navbar = ( props ) => {
                   <Link to="/about">About</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                  <Link to="/about">About this website</Link>
+              </BreadcrumbItem>
             </BreadcrumbList>
+
           );
         case pathname === '/discovery':
           return (
