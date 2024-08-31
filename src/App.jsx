@@ -35,7 +35,6 @@ const App = () => {
 
               <Route path='/login' element={<LoginPage />} />
               <Route path='/signup' element={<SignupPageOtp />} />
-              {/* <Route path='/signupotp' element={<SignupPageOtp />} /> */}
               <Route path='/landing' element={<LandingPage />} />
               <Route path='/activate/:uid/:token' element={<ActivationSuccessPage />} />
               <Route path="/request-password-reset" element={<PasswordResetRequestPage />} />

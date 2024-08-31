@@ -26,7 +26,7 @@ export function LoginForm({ loginUser }) {
       <CardHeader>
         <CardTitle className="text-2xl">Sign In</CardTitle>
         <CardDescription>
-          Enter your email below to log into your account
+          Enter your username and password below to log into your account
         </CardDescription>
       </CardHeader>
       <CardContent>

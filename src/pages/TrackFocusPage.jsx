@@ -30,7 +30,7 @@ const TrackFocusPage = () => {
       } else {
         setLoading(false);
       }
-    }, 5000); // 4 seconds delay
+    }, 5000); // x seconds delay
 
     return () => clearTimeout(initialDelay);
   }, [statsData]);
@@ -42,7 +42,7 @@ const TrackFocusPage = () => {
           toast.error('No data available yet... try again in a few days.');
         }
         setLoading(false);
-      }, 4000); // Additional 4 seconds delay
+      }, 4000); // Additional x seconds delay
 
       return () => clearTimeout(extendedDelay);
     }

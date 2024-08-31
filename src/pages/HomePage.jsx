@@ -25,9 +25,18 @@ const HomePage = () => {
     <>
         <Navbar>
           <Dashboard2>
-            <DataTableDemo2 sources={sources} userSources={userSources} setSourcesUpdateNeeded={setSourcesUpdateNeeded} setUserSourcesUpdateNeeded={setUserSourcesUpdateNeeded} >
+            <DataTableDemo2 
+                    sources={sources} 
+                    userSources={userSources} 
+                    setSourcesUpdateNeeded={setSourcesUpdateNeeded} 
+                    setUserSourcesUpdateNeeded={setUserSourcesUpdateNeeded} 
+            >
               <DrawerComponent>
-                <Addsource sources={sources} setSourcesUpdateNeeded={setSourcesUpdateNeeded} setUserSourcesUpdateNeeded={setUserSourcesUpdateNeeded} />
+                <Addsource 
+                    sources={sources} 
+                    setSourcesUpdateNeeded={setSourcesUpdateNeeded} 
+                    setUserSourcesUpdateNeeded={setUserSourcesUpdateNeeded} 
+                />
               </DrawerComponent>
             </DataTableDemo2>
           </Dashboard2>
