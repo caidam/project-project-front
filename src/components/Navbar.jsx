@@ -464,20 +464,45 @@ const Navbar = ( props ) => {
                   className="overflow-hidden rounded-full"
                 /> */}
               </Button>
-            </DropdownMenuTrigger>
+
+
+            {/* </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>{user.username}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <Link to="/request-password-reset"><DropdownMenuItem>Update Password</DropdownMenuItem></Link>
               <DropdownMenuItem className="bg-accent-foreground text-accent">
-                {/* Delete Account */}
+                
                 <ConfirmDeleteToaster onConfirm={handleDeleteAccount} />
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <Link onClick={ logoutUser } > <DropdownMenuItem> Logout </DropdownMenuItem> </Link>
             </DropdownMenuContent>
           </DropdownMenu>
+        </header> */}
+
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>{user.username}</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+
+          {user.username !== 'guest' && (
+            <>
+              <Link to="/request-password-reset"><DropdownMenuItem>Update Password</DropdownMenuItem></Link>
+              <DropdownMenuItem className="bg-accent-foreground text-accent">
+                {/* Delete Account */}
+                <ConfirmDeleteToaster onConfirm={handleDeleteAccount} />
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+            </>
+          )}
+
+          <Link onClick={logoutUser}><DropdownMenuItem>Logout</DropdownMenuItem></Link>
+        </DropdownMenuContent>
+        </DropdownMenu>
         </header>
+
+
         
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           {props.children}

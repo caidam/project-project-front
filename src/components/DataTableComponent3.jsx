@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useContext } from 'react';
 import {
   flexRender,
   getCoreRowModel,
@@ -34,6 +34,7 @@ import { useStopTracking } from '@/hooks/useTrackedSources';
 import ConfirmationToaster from './ConfirmationToasterComponent';
 import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
+import AuthContext from '@/context/AuthContext';
 
 const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(window.matchMedia(query).matches);
@@ -56,6 +57,10 @@ export function DataTableDemo2({
   setUserSourcesUpdateNeeded,
   children,
 }) {
+
+  // USER
+  let { user } = useContext(AuthContext)
+
   const stopTracking = useStopTracking(setSourcesUpdateNeeded, setUserSourcesUpdateNeeded);
 
   const isMediumScreen = useMediaQuery('(min-width: 768px)');
@@ -134,29 +139,59 @@ export function DataTableDemo2({
         };
 
         return (
+          // <DropdownMenu>
+          //   <DropdownMenuTrigger asChild>
+          //     <Button variant="ghost" className="h-8 w-8 p-0">
+          //       <span className="sr-only">Open menu</span>
+          //       <MoreHorizontal className="h-4 w-4" />
+          //     </Button>
+          //   </DropdownMenuTrigger>
+          //   <DropdownMenuContent align="end">
+          //     <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          //     <DropdownMenuItem>
+          //       <ConfirmationToaster onConfirm={handleStopTracking} />
+          //     </DropdownMenuItem>
+          //     <DropdownMenuSeparator />
+          //     <a href={row.original.url} target="parent_">
+          //       <DropdownMenuItem>
+          //         Watch Video
+          //       </DropdownMenuItem>
+          //     </a>
+          //     <a href={row.original.author_url} target="parent_">
+          //       <DropdownMenuItem>View Channel</DropdownMenuItem>
+          //     </a>
+          //   </DropdownMenuContent>
+          // </DropdownMenu>
+
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+
+            {/* Conditional check for a URL and user role */}
+            {/* (!row.original.url.includes('your_specific_url') || user.role !== 'guest') */}
+            {/* https://www.youtube.com/watch?v=WneBkwoeG4A */}
+            {/* {row.original.url !== 'https://www.youtube.com/watch?v=WneBkwoeG4A' && user.username !== 'guest' && ( */}
+            {(!row.original.url.includes('https://www.youtube.com/watch?v=WneBkwoeG4A') && user.role !== 'guest') && (
               <DropdownMenuItem>
                 <ConfirmationToaster onConfirm={handleStopTracking} />
               </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <a href={row.original.url} target="parent_">
-                <DropdownMenuItem>
-                  Watch Video
-                </DropdownMenuItem>
-              </a>
-              <a href={row.original.author_url} target="parent_">
-                <DropdownMenuItem>View Channel</DropdownMenuItem>
-              </a>
-            </DropdownMenuContent>
-          </DropdownMenu>
+            )}
+
+            <DropdownMenuSeparator />
+            <a href={row.original.url} target="parent_">
+              <DropdownMenuItem>Watch Video</DropdownMenuItem>
+            </a>
+            <a href={row.original.author_url} target="parent_">
+              <DropdownMenuItem>View Channel</DropdownMenuItem>
+            </a>
+          </DropdownMenuContent>
+        </DropdownMenu>
         );
       },
     });
