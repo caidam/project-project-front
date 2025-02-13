@@ -302,7 +302,8 @@ export function DataTableDemo2({
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  <p>No results.</p> 
+                  <p className='text-muted-foreground'>If it persists and you already track videos, you may need to refresh the page or login again.</p>
                 </TableCell>
               </TableRow>
             )}

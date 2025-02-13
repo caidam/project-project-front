@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import AuthContext from '../context/AuthContext';
 import { LoginForm } from '@/components/LoginFormComponent';
 import { toast, Toaster } from 'sonner';
+import NavbarPublic from '@/components/NavbarPublic';
 
 const LoginPage = () => {
   const [errors, setErrors] = useState({});
@@ -37,10 +38,12 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <LoginForm loginUser={handleLogin} />
-      {/* <Toaster richColors closeButton /> */}
-    </div>
+    <NavbarPublic>
+      <div className="flex items-center justify-center min-h-screen">
+        <LoginForm loginUser={handleLogin} />
+        {/* <Toaster richColors closeButton /> */}
+      </div>
+    </NavbarPublic>
   );
 };
 

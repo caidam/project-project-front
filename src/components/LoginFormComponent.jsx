@@ -166,7 +166,14 @@ export function SignUpFormOtp({ signupUser, isOtpValid, validateOtp }) {
       <CardHeader>
         <CardTitle className="text-2xl">Sign Up </CardTitle>
         <CardDescription>
-          {!isOtpValid && "Enter your access code to sign up" }
+          {/* {!isOtpValid && "Enter your access code to sign up" } */}
+          {!isOtpValid && (
+            <div>
+              <p className='mb-2'>Signups are currently limited.</p>
+              <p>Please send me a message at <a href="mailto:music-video-tracker@caidam.fyi" className='underline text-primary'>music-video-tracker@caidam.fyi</a> to get an access code.</p>
+              {/* <p>Enter your access code to sign up:</p> */}
+            </div>
+          )}
           {isOtpValid && "Enter your information to create an account" }
         </CardDescription>
       </CardHeader>

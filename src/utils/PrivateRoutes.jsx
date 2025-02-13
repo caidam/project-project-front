@@ -31,7 +31,7 @@ const PrivateRoutes = () => {
 
   // If user is authenticated, allow access to protected routes
   // If the path is public, also allow access
-  return user || isPublicPath ? <Outlet /> : <Navigate to='/login' />;
+  return user || isPublicPath ? <Outlet /> : <Navigate to='/landing' />;
 };
 
 export default PrivateRoutes;

@@ -91,6 +91,7 @@ import React, { useState } from 'react';
 import { DJ_BASE_URL, FIXED_OTP } from '../config';
 import { SignUpFormOtp } from '@/components/LoginFormComponent';
 import { toast } from 'sonner';
+import NavbarPublic from '@/components/NavbarPublic';
 
 // const FIXED_OTP = ""; // Fixed OTP code for testing purposes
 
@@ -172,9 +173,11 @@ const SignupPageOtp = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <SignUpFormOtp signupUser={signupUser} isOtpValid={isOtpValid} validateOtp={validateOtp} />
-    </div>
+    <NavbarPublic>
+      <div className="flex items-center justify-center min-h-screen">
+        <SignUpFormOtp signupUser={signupUser} isOtpValid={isOtpValid} validateOtp={validateOtp} />
+      </div>
+    </NavbarPublic>
   );
 };
 
